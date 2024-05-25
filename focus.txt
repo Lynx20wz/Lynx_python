@@ -1,0 +1,7 @@
+
+
+focus = {
+    id = SOV_com
+    cost = 5
+}
+

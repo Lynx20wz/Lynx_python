@@ -5,9 +5,6 @@ focus_fc_m = []
 first_f = True
 
 
-
-
-
 class fc:
     def __init__(self, id, cost=None, prerequisite=None, mutually_exclusive=None):
         self.id = id

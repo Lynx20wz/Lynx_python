@@ -1,7 +1,5 @@
-
-
 focus = {
-    id = SOV_com
-    cost = 5
+    id = AUS_pim
+    cost = 3
 }
 

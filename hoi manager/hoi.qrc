@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="rec">
+    <file>logo hoi full.jpg</file>
+    <file>Hoi4 logo.png</file>
+  </qresource>
+</RCC>

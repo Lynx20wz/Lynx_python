@@ -354,13 +354,14 @@ def create_focus_tree(id):
     }}'''
         focus_file.write(focus_tree)
 
-def find_tag(name):
-    if name in tag_coutries:
-        output = tag_coutries.items(name)
-        print(f"соответсвующий тэг: {output}")
-    else: 
-        print("Такое название не найдено")
-    return output
+def get_key(significance):
+    for k, s in tag_coutries.items():
+        for s in s:
+            if s == significance:
+                return k
+    else:
+        print('Название не найдено!')
+        return 'MOD'
 
 
 print("Задрвствуйте, это программа создана для моддинга в Heart of Iron4. В данный момент вам доступны следующие комнады: \nНастройки, фокусы, выход")
@@ -369,25 +370,28 @@ print("Задрвствуйте, это программа создана для
 try:
     with open("focus.txt", 'r') as focus_file:
         for line in focus_file:
-            if "focus = {" in line:
-                focus_block = True
-                while focus_block:
-                    for line in focus_file:
-                        if "id = " in line:
-                            find_id = line[line.find("id = ") + len("id = "):].strip()
-                        if "cost = " in line:
-                            find_cost = line[line.find("cost = ") + len("cost = "):].strip()
-                        if "prerequisite =" in line:
-                            find_prerequisite = line[line.find("prerequisite = ") + len("prerequisite = "):].strip()
-                        else: 
-                            find_prerequisite = None
-                        if "mutually_exclusive =" in line:
-                            find_mutually_exclusive = line[line.find("mutually_exclusive = ") + len("mutually_exclusive = "):].strip()
-                        else: 
-                            find_mutually_exclusive = None
-                        if "}" in line:
-                            focus_block = False
-                            find_id = focus_class(find_id, find_cost, find_prerequisite, find_mutually_exclusive)
+            if not line.startswith("focus_tree = {"):
+                break
+            else:
+                if "focus = {" in line:
+                    focus_block = True
+                    while focus_block:
+                        for line in focus_file:
+                            if "id = " in line:
+                                find_id = line[line.find("id = ") + len("id = "):].strip()
+                            if "cost = " in line:
+                                find_cost = line[line.find("cost = ") + len("cost = "):].strip()
+                            if "prerequisite =" in line:
+                                find_prerequisite = line[line.find("prerequisite = ") + len("prerequisite = "):].strip()
+                            else: 
+                                find_prerequisite = None
+                            if "mutually_exclusive =" in line:
+                                find_mutually_exclusive = line[line.find("mutually_exclusive = ") + len("mutually_exclusive = "):].strip()
+                            else: 
+                                find_mutually_exclusive = None
+                            if "}" in line:
+                                focus_block = False
+                                find_id = focus_class(find_id, find_cost, find_prerequisite, find_mutually_exclusive)
 
 except FileNotFoundError:
     print("Файл с фокусами не был найден!")
@@ -405,8 +409,7 @@ else:
         if focus_tree_tag_quest.upper() in tag_coutries:
             create_focus_tree(focus_tree_tag_quest)
         else:
-            create_focus_tree(find_tag(focus_tree_tag_quest))
-
+            create_focus_tree(get_key(focus_tree_tag_quest))
     else:
         ...
 

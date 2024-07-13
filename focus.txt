@@ -1,5 +1,0 @@
-focus = {
-    id = AUS_pim
-    cost = 3
-}
-

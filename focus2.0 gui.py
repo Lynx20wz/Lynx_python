@@ -1,5 +1,13 @@
+#figd_lKa4uNZk1B1pc-AWt_YRVuC2u3iMiVk0Aup_ilgb
+
 import re
+import customtkinter
 import sys
+from PIL import Image
+from tkinter import filedialog
+
+ico_uptade = customtkinter.CTkImage(light_image=Image.open('перезагрузка.png'), dark_image=Image.open('перезагрузка.png'), size=(30, 30))
+
 focus_name_massiv = []
 focus_dictionary = {}
 tag_coutries = {
@@ -291,7 +299,8 @@ class country_class:
 
     def create_country(self, tag, name, ideologies, capital = None, leader = None):
 
-        with open(f"{name}.txt")
+        with open(f"{name}.txt"):
+            pass
 class focus_class:
     #инициализация
     def __init__(self, id, cost, prerequisite=None, mutually_exclusive=None, create_focus=None):
@@ -355,6 +364,95 @@ class focus_class:
             focus_entry += f'}}\n\n'
             focus_file.write(focus_entry)
 
+class App_class(customtkinter.CTk):
+    def __init__(self):
+        super().__init__()
+        self.geometry("800x600")
+        self.resizable(False, False)
+        #self.iconbitmap()
+        #self.attributes('-topmost', True) #закрепить наверху
+        self.title("Modding manager")
+
+
+
+        tab = customtkinter.CTkTabview(self, width=800, height=570, corner_radius=15, anchor='nw')
+        tab.pack(pady = (30,0))
+
+        tab.add('focus')
+        tab.set('focus')
+        tab.add('spirits')
+
+        frame1 = customtkinter.CTkFrame(self)
+        frame1.pack()
+
+        #кнопки
+
+        #кнопка открыть файл
+        self.btnopenfocusfile = customtkinter.CTkButton(tab.tab('focus'), height=33, width=120, fg_color='#010046', text='открыть', command=self.open_file, corner_radius=10)
+        self.btnopenfocusfile.grid(padx = 5, pady = (15,0))
+
+        #кнопка сохранить
+        self.btnsavefocusfile = customtkinter.CTkButton(tab.tab('focus'), height=33, width=120, fg_color='#010046', text='сохранить', command=self.save_file, corner_radius=10)
+        self.btnsavefocusfile.grid(padx = 5, pady = 5)
+
+        #кнопка обнвления
+        self.updatebtn = customtkinter.CTkButton(master=frame1, command=self.uptadewidget, image=ico_uptade)
+        self.updatebtn.grid(padx=20, pady=30)
+
+    def uptadewidget(self):
+        app.update()
+
+    def open_file(self):
+        initial_file = filedialog.askopenfilename(title="Выберете файл содержащий фокусы", filetypes=[("Файл с фокусами",".txt*")])
+        if initial_file != "":
+            try:
+                with open(initial_file, 'r') as focus_file:
+                    for line in focus_file:
+                        if not line.startswith("focus_tree = {"):
+                            break
+                        else:
+                            if "focus = {" in line:
+                                focus_block = True
+                                while focus_block:
+                                    for line in focus_file:
+                                        if "id = " in line:
+                                            find_id = line[line.find("id = ") + len("id = "):].strip()
+                                        if "cost = " in line:
+                                            find_cost = line[line.find("cost = ") + len("cost = "):].strip()
+                                        if "prerequisite =" in line:
+                                            find_prerequisite = line[line.find("prerequisite = ") + len("prerequisite = "):].strip()
+                                        else: 
+                                            find_prerequisite = None
+                                        if "mutually_exclusive =" in line:
+                                            find_mutually_exclusive = line[line.find("mutually_exclusive = ") + len("mutually_exclusive = "):].strip()
+                                        else: 
+                                            find_mutually_exclusive = None
+                                        if "}" in line:
+                                            focus_block = False
+                                            find_id = focus_class(find_id, find_cost, find_prerequisite, find_mutually_exclusive)
+            except FileNotFoundError:
+                print("Файл с фокусами не был найден!")
+
+            if len(focus_name_massiv) > 0:
+                print(f"Всего было найдено фокусов {len(focus_name_massiv)}:")
+                #print(', '.join(focus_name_massiv))
+                print(focus_class.all_focus())
+
+            else:
+                print("Фокусы в файле не найдены!")
+                focus_tree_quest = input("Создать новую ветку фокусов?: ")
+                if focus_tree_quest == 'yes' or focus_tree_quest == 'да':
+                    focus_tree_tag_quest = input("На какую страну делаем ветку фокусов?: ").lower()
+                    if focus_tree_tag_quest.upper() in tag_coutries:
+                        create_focus_tree(focus_tree_tag_quest)
+                    else:
+                        create_focus_tree(get_key(focus_tree_tag_quest))
+                else:
+                    ...
+
+    def save_file(self):
+        pass
+
 def create_focus_tree(id):
     id = id.upper()
     with open("focus.txt", 'w') as focus_file:
@@ -381,98 +479,10 @@ def get_key(significance):
             if len(tag) == 3 and re.match(r'^[A-Z]+$', tag):
                 name = input("Введите название страны на вашем языке: ").lower()
                 ideologies_quest = input("Введите идеологию страны (фашизм, комунизм, нейтралитет, демократия, своя): ")
-                if ideologies_quest in ideologies_massiv:
-                    pass
+                #if ideologies_quest == 
+                #    ideologies = input
         return 'MOD'
 
 
-print("Задрвствуйте, это программа создана для моддинга в Heart of Iron4. В данный момент вам доступны следующие комнады: \nНастройки, фокусы, выход")
-
-#считывание созданных фокусов в файле
-try:
-    with open("focus.txt", 'r') as focus_file:
-        for line in focus_file:
-            if not line.startswith("focus_tree = {"):
-                break
-            else:
-                if "focus = {" in line:
-                    focus_block = True
-                    while focus_block:
-                        for line in focus_file:
-                            if "id = " in line:
-                                find_id = line[line.find("id = ") + len("id = "):].strip()
-                            if "cost = " in line:
-                                find_cost = line[line.find("cost = ") + len("cost = "):].strip()
-                            if "prerequisite =" in line:
-                                find_prerequisite = line[line.find("prerequisite = ") + len("prerequisite = "):].strip()
-                            else: 
-                                find_prerequisite = None
-                            if "mutually_exclusive =" in line:
-                                find_mutually_exclusive = line[line.find("mutually_exclusive = ") + len("mutually_exclusive = "):].strip()
-                            else: 
-                                find_mutually_exclusive = None
-                            if "}" in line:
-                                focus_block = False
-                                find_id = focus_class(find_id, find_cost, find_prerequisite, find_mutually_exclusive)
-
-except FileNotFoundError:
-    print("Файл с фокусами не был найден!")
-
-if len(focus_name_massiv) > 0:
-    print(f"Всего было найдено фокусов {len(focus_name_massiv)}:")
-    #print(', '.join(focus_name_massiv))
-    print(focus_class.all_focus())
-
-else:
-    print("Фокусы в файле не найдены!")
-    focus_tree_quest = input("Создать новую ветку фокусов?: ")
-    if focus_tree_quest == 'yes' or focus_tree_quest == 'да':
-        focus_tree_tag_quest = input("На какую страну делаем ветку фокусов?: ").lower()
-        if focus_tree_tag_quest.upper() in tag_coutries:
-            create_focus_tree(focus_tree_tag_quest)
-        else:
-            create_focus_tree(get_key(focus_tree_tag_quest))
-    else:
-        ...
-
-while True:
-    command = input("Введите команду: ").lower()
-
-    if command == 'focus' or command == 'фокусы':
-        while True:
-            #Обновление перемнных
-            id = ''
-            cost = ''
-
-            id = input("Введите название фокуса: ")
-            if re.match(r'^[a-zA-Z0-9_ ]+$', id):
-                if id in focus_name_massiv:
-                    quest_repeat_focus = input("Что сделать с фокусом?\nИзменить, просмотреть: ").lower()
-                    if quest_repeat_focus == 'edit' or quest_repeat_focus == 'изменить':
-                        id.editing_focus()
-                    if quest_repeat_focus == 'look' or quest_repeat_focus == 'просмотреть':
-                        id_focus_class = focus_class.search_focus_in_dictionary(id)
-                        print(id_focus_class.info())
-
-                elif id == 'clear' or id == 'очистить':
-                    command = input("Вы точно хотите очистить все фокусы?: ")
-                    if command == 'yes' or 'да':
-                        focus_class.clear_focus_file()
-                    else:
-                        ...
-                        
-                else:
-                    while True:
-                        cost = input("Сколько недель будет проходиться фокус? ")
-                        if cost == 'back' or cost == 'назад':
-                            break
-                        elif re.match(r'[1-9]', cost):
-                            id_focus_class = (focus_class(id, cost, create_focus=1))
-                            print(f'Фокус {id} был создан!:\n{id_focus_class.info()}\nВсего фокусов {len(focus_dictionary)}: {focus_class.all_focus()}')
-                            break
-                        else:
-                            print('Cost должен быть цифрой')
-            else:
-                print("Название фокуса должно быть на английском!")
-    else:
-        print("Команда не найдена, повторите попытку")
+app = App_class()
+app.mainloop()

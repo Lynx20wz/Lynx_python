@@ -1,7 +1,9 @@
-import re
+import json
+import os
 import sys
-focus_name_massive = []
-focus_dictionary = {}
+from tkinter import filedialog
+from rich import print
+
 tag_countries = {
     'GER': ['germany', 'германия'],
     'ENG': ['united kingdom', 'великобритания', 'вб'],
@@ -276,209 +278,85 @@ tag_countries = {
     'NAH': ['nahua', 'государство науа'],
     'IAS': ['isthmo amerindia', 'истмо америндия'],
 }
-ideologies_massive = ['фашизм', 'коммунизм', 'демократия', 'нейтралитет']
+focus_files = []
 
-# write def for plus a and b
+def open_file():
+    while not '':
+        print('Откройте папку с файлами фокусов:')
+        global file_folder
+        file_folder = filedialog.askdirectory(title='Открыть папку с фокусами')
 
-class country_class:
-    def __init__(self, tag, name, ideologies, capital = None, leader = None, create_country = None):
-        self.tag = tag
-        self.name = name
-        self.capital = capital
-        self.ideologies = ideologies
-        self.leader = leader
-
-        if create_country == True:
-            create_country(tag, name, ideologies, capital, leader)
-
-    def create_country(self, tag, name, ideologies, capital = None, leader = None):
-        with open(f"{name}.txt"):
-            write_to_file = f'''capital = {capital}'''
-
-class focus_class:
-    #инициализация
-    def __init__(self, id, cost, prerequisite=None, mutually_exclusive=None, create_focus=None):
-        self.id = id
-        self.cost = cost
-        self.prerequisite = prerequisite
-        self.mutually_exclusive = mutually_exclusive
-        focus_name_massive.append(self.id)
-        focus_dictionary[id] = {'self': self, 'id': self.id, 'cost': self.cost, 'prerequisite': self.prerequisite, 'mutually_exclusive': self.mutually_exclusive}
-        if create_focus == 1:
-            self.focus_to_file(id, cost, prerequisite, mutually_exclusive)
+        if file_folder == '':
+            print("Папка не выбрана!")
+            while True:
+                q_exit = input('Попробовать ещё раз или выход?\n[в/п]: ')
+                if q_exit == 'п':
+                    break
+                elif q_exit == 'в':
+                    sys.exit()
+                else:
+                    print("Команда не найдена! Повторите попытку.")
         else:
-            ... #ничего не происходит
+            break
 
-    def info(self):
-        output = f'\nФокус: "{self.id}" | {self.cost}\n'
-        if self.prerequisite:
-            output += f'prerequisite: {self.pre}\n'
-        if self.mutually_exclusive:
-            output += f'mutually_exclusive: {self.muex}\n'
-        return output
-    
-    @staticmethod
-    def all_focus():
-        output = ', '.join(focus_name_massive)
-        return output
-
-    @staticmethod
-    def clear_focus_file():  # очистка всего файла
-        with open("focus.txt", "w") as file:
-            file.write('')
-        focus_name_massive.clear()
-        focus_dictionary.clear()
-        print("Содержимое файла focus.txt было полностью удалено.")
-
-    def search_focus_in_dictionary(id):
-        for search_focus in focus_dictionary:
-            if search_focus == id:
-                search_focus = focus_dictionary[search_focus]['self']
-                return search_focus
-    
-    
-    #блок изменений частей
-    def set_id(self, id):
-        self.id = id
-
-    def set_cost(self, cost):
-        self.cost = cost
-
-    def set_pre(self, prerequisite):
-        self.pre = prerequisite
-
-    def set_muex(self, mutually_exclusive):
-        self.muex = mutually_exclusive
-
-    def editing_focus(self):
-        ...
-
-    def focus_to_file(self, id, cost, prerequisite=None, mutually_exclusive=None):
-        with open("focus.txt", 'a') as focus_file:
-            focus_entry = f"focus = {{\n    id = {self.id}\n    cost = {self.cost}\n"
-            focus_entry += f'}}\n\n'
-            focus_file.write(focus_entry)
-
-def create_focus_tree(id):
-    id = id.upper()
-    with open("focus.txt", 'w') as focus_file:
-        focus_tree = f'''focus_tree = {{
-    id = {id}_focus_tree
-    country = {{
-        factor = 0
-        modifier = {{
-            add = 15
-            original_tag = {id}
-        }} 
-    }}'''
-        focus_file.write(focus_tree)
-
-def get_key(significance):
+def get_key(name):
     for k, s in tag_countries.items():
         for s in s:
-            if s == significance:
+            if s == name:
                 return k
+
+open_file()
+print("Выбранный путь к файлу: ", file_folder.replace(' ', '_'))
+
+for files in os.listdir(file_folder):
+    extension_file = files[files.find('.'):]
+    if extension_file == '.txt':
+        focus_files.append(files)
     else:
-        unknown_tag_quest = input(
-            'Такого названия не найдено! Хотите создать новую страну?: ')
-        if unknown_tag_quest == 'yes' or unknown_tag_quest == 'да':
-            tag = input('Введите трёх-символьный тэг страны (например: "GER"): ').upper()
-            if len(tag) == 3 and re.match(r'^[A-Z]+$', tag):
-                name = input("Введите название страны на вашем языке: ").lower()
-                ideologies_quest = input(
-                    "Введите идеологию страны (фашизм, коммунизм, нейтралитет, демократия, своя): ")
-                if ideologies_quest in ideologies_massive:
-                    pass
-        return 'MOD'
-
-
-print("Здравствуйте, это программа создана для моддинга в Heart of Iron4. В данный момент вам доступны следующие команды: \nНастройки, фокусы, выход")
-
-#считывание созданных фокусов в файле
-try:
-    with open("focus.txt", 'r') as focus_file:
-        for line in focus_file:
-            if not line.startswith("focus_tree = {"):
-                break
-            else:
-                if "focus = {" in line:
-                    focus_block = True
-                    while focus_block:
-                        for line in focus_file:
-                            if "id = " in line:
-                                find_id = line[line.find("id = ") + len("id = "):].strip()
-                            if "cost = " in line:
-                                find_cost = line[line.find("cost = ") + len("cost = "):].strip()
-                            if "prerequisite =" in line:
-                                find_prerequisite = line[line.find("prerequisite = ") + len("prerequisite = "):].strip()
-                            else: 
-                                find_prerequisite = None
-                            if "mutually_exclusive =" in line:
-                                find_mutually_exclusive = line[line.find("mutually_exclusive = ") + len("mutually_exclusive = "):].strip()
-                            else: 
-                                find_mutually_exclusive = None
-                            if "}" in line:
-                                focus_block = False
-                                find_id = focus_class(find_id, find_cost, find_prerequisite, find_mutually_exclusive)
-
-except FileNotFoundError:
-    print("Файл с фокусами не был найден!")
-
-if len(focus_name_massive) > 0:
-    print(f"Всего было найдено фокусов {len(focus_name_massive)}:")
-    # print(', '.join(focus_name_massive))
-    print(focus_class.all_focus())
-
+        print(f"В папке обнаружены посторонние файлы: [red]{files}[/red].\nПожалуйста выберете другую папку.")
+        open_file()
 else:
-    print("Фокусы в файле не найдены!")
-    focus_tree_quest = input("Создать новую ветку фокусов?: ")
-    if focus_tree_quest == 'yes' or focus_tree_quest == 'да':
-        focus_tree_tag_quest = input("На какую страну делаем ветку фокусов?: ").lower()
-        if focus_tree_tag_quest.upper() in tag_countries:
-            create_focus_tree(focus_tree_tag_quest)
-        else:
-            create_focus_tree(get_key(focus_tree_tag_quest))
-    else:
-        ...
+    focus_files = ', '.join(focus_files)
+    print(f"Найдены следующие файлы фокусов:\n[dodger_blue2]{focus_files}[/dodger_blue2]")
+    question = input("Продолжить работу с ними?\n[да/нет]: ")
+    print('')
+    if question == 'да' or question == 'yes':
+        for files in os.listdir(file_folder):
+            name_country = files[:files.find('.')]
+            tag = get_key(name_country)
+            print(name_country.capitalize(), ':', tag)
+            with open(f'{file_folder}/{files}', 'r') as focus_file:
+                focus_block = False
+                focus_dict = {}
+                for line in focus_file.readlines():
+                    line = line.strip()
+                    if line.startswith('focus = {') or focus_block is True:
+                        line = line.replace('#', '')
+                        prerequisite = 'None'
+                        focus_block = True
+                        if focus_block:
+                            if line.startswith('id ='):
+                                id_focus = line[len('id = '):]
+                                focus_dict['id'] = id_focus
+                            if line.startswith('prerequisite ='):
+                                focus_count = line.count('focus =')
+                                if focus_count == 1:
+                                    prerequisite = line[len('prerequisite = { focus = '):line.rfind('}') - 1]
+                                else:
+                                    prerequisite = line[len('prerequisite = { focus = '):line.rfind('}') - 1].split(
+                                        'focus =')
+                                    prerequisite = ', '.join(i.strip() for i in prerequisite)
+                                focus_dict['prerequisite'] = prerequisite
 
-while True:
-    command = input("Введите команду: ").lower()
+                            if line.startswith('cost ='):
+                                cost = line[len('cost = '):]
+                                focus_dict['cost'] = cost
 
-    if command == 'focus' or command == 'фокусы':
-        while True:
-            # Обновление переменных
-            id = ''
-            cost = ''
-
-            id = input("Введите название фокуса: ")
-            if re.match(r'^[a-zA-Z0-9_ ]+$', id):
-                if id in focus_name_massive:
-                    quest_repeat_focus = input("Что сделать с фокусом?\nИзменить, просмотреть: ").lower()
-                    if quest_repeat_focus == 'edit' or quest_repeat_focus == 'изменить':
-                        id.editing_focus()
-                    if quest_repeat_focus == 'look' or quest_repeat_focus == 'просмотреть':
-                        id_focus_class = focus_class.search_focus_in_dictionary(id)
-                        print(id_focus_class.info())
-
-                elif id == 'clear' or id == 'очистить':
-                    command = input("Вы точно хотите очистить все фокусы?: ")
-                    if command == 'yes' or 'да':
-                        focus_class.clear_focus_file()
-                    else:
-                        ...
-                        
-                else:
-                    while True:
-                        cost = input("Сколько недель будет проходиться фокус? ")
-                        if cost == 'back' or cost == 'назад':
-                            break
-                        elif re.match(r'[1-9]', cost):
-                            id_focus_class = (focus_class(id, cost, create_focus=1))
-                            print(f'Фокус {id} был создан!:\n{id_focus_class.info()}\nВсего фокусов {len(focus_dictionary)}: {focus_class.all_focus()}')
-                            break
-                        else:
-                            print('Cost должен быть цифрой')
-            else:
-                print("Название фокуса должно быть на английском!")
-    else:
-        print("Команда не найдена, повторите попытку")
+                            if line.startswith('}'):
+                                focus_block = False
+                                print(
+                                    f'[green1]Фокус: {id_focus}[/green1]\n[yellow2]{prerequisite}[/yellow2] '
+                                    f'[dodger_blue2]|[/dodger_blue2] [orange1]{cost}[/orange1]\n')
+                                with open('focus_json.json', 'a') as json_file:
+                                    json = {tag: {id_focus: {focus_dict}}}
+                                    json.dump(json, json_file, indent=2)

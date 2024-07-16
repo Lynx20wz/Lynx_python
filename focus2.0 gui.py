@@ -1,12 +1,13 @@
-#figd_lKa4uNZk1B1pc-AWt_YRVuC2u3iMiVk0Aup_ilgb
-
+# figd_lKa4uNZk1B1pc-AWt_YRVuC2u3iMiVk0Aup_ilgb
+import os
 import re
 import customtkinter
 import sys
 from PIL import Image
 from tkinter import filedialog
 
-ico_uptade = customtkinter.CTkImage(light_image=Image.open('перезагрузка.png'), dark_image=Image.open('перезагрузка.png'), size=(30, 30))
+ico_uptade = customtkinter.CTkImage(light_image=Image.open('перезагрузка.png'),
+                                    dark_image=Image.open('перезагрузка.png'), size=(30, 30))
 
 focus_name_massiv = []
 focus_dictionary = {}
@@ -286,8 +287,9 @@ tag_coutries = {
 }
 ideologies_massiv = ['фашизм', 'комунизм', 'демокртия', 'нейтралитет']
 
+
 class country_class:
-    def __init__(self, tag, name, ideologies, capital = None, leader = None, create_country = None):
+    def __init__(self, tag, name, ideologies, capital=None, leader=None, create_country=None):
         self.tag = tag
         self.name = name
         self.capital = capital
@@ -297,37 +299,40 @@ class country_class:
         if create_country == 1:
             create_country(tag, name, ideologies, capital, leader)
 
-    def create_country(self, tag, name, ideologies, capital = None, leader = None):
-
+    def create_country(self, tag, name, ideologies, capital=None, leader=None):
         with open(f"{name}.txt"):
             pass
+
+
 class focus_class:
     #инициализация
     def __init__(self, id, cost, prerequisite=None, mutually_exclusive=None, create_focus=None):
         self.id = id
-        self.cost = cost
+        self.costм = cost
         self.prerequisite = prerequisite
         self.mutually_exclusive = mutually_exclusive
         focus_name_massiv.append(self.id)
-        focus_dictionary[id] = {'self': self, 'id': self.id, 'cost': self.cost, 'prerequisite': self.prerequisite, 'mutually_exclusive': self.mutually_exclusive}
+        focus_dictionary[id] = {'self': self, 'id': self.id, 'cost': self.costм, 'prerequisite': self.prerequisite,
+                                'mutually_exclusive': self.mutually_exclusive}
         if create_focus == 1:
             self.focus_to_file(id, cost, prerequisite, mutually_exclusive)
         else:
-            ... #ничего не происходит
+            ...  #ничего не происходит
 
     def info(self):
-        output = f'\nФокус: "{self.id}" | {self.cost}\n'
+        output = f'\nФокус: "{self.id}" | {self.costм}\n'
         if self.prerequisite:
             output += f'prerequisite: {self.pre}\n'
         if self.mutually_exclusive:
             output += f'mutually_exclusive: {self.muex}\n'
         return output
-    
+
     @staticmethod
     def all_focus():
         output = ', '.join(focus_name_massiv)
         return output
-    
+
+    @staticmethod
     def clear_focus_file():  #очитска всего файла
         with open("focus.txt", "w") as file:
             file.write('')
@@ -340,9 +345,8 @@ class focus_class:
             if search_focus == id:
                 search_focus = focus_dictionary[search_focus]['self']
                 return search_focus
-    
-    
-    #блок изменений частей
+
+    # блок изменений частей
     def set_id(self, id):
         self.id = id
 
@@ -360,50 +364,52 @@ class focus_class:
 
     def focus_to_file(self, id, cost, prerequisite=None, mutually_exclusive=None):
         with open("focus.txt", 'a') as focus_file:
-            focus_entry = f"focus = {{\n    id = {self.id}\n    cost = {self.cost}\n"
+            focus_entry = f"focus = {{\n    id = {self.id}\n    cost = {self.costм}\n"
             focus_entry += f'}}\n\n'
             focus_file.write(focus_entry)
+
 
 class App_class(customtkinter.CTk):
     def __init__(self):
         super().__init__()
         self.geometry("800x600")
         self.resizable(False, False)
+        self.bg_image = customtkinter.CTkImage(Image.open("bg.jpg"), size=(800, 600))
+        self.bg_image_label = customtkinter.CTkLabel(self, image=self.bg_image)
+        self.bg_image_label.grid(row=0,column=0)
         #self.iconbitmap()
         #self.attributes('-topmost', True) #закрепить наверху
         self.title("Modding manager")
 
-
-
         tab = customtkinter.CTkTabview(self, width=800, height=570, corner_radius=15, anchor='nw')
-        tab.pack(pady = (30,0))
+        tab.grid(row=0, column=0)
 
         tab.add('focus')
         tab.set('focus')
         tab.add('spirits')
 
-        frame1 = customtkinter.CTkFrame(self)
-        frame1.pack()
+        # кнопки
 
-        #кнопки
+        # кнопка открыть файл
+        self.btnopenfocusfile = customtkinter.CTkButton(tab.tab('focus'), height=33, width=120, fg_color='#010046',
+                                                        text='открыть', command=self.open_file, corner_radius=10)
+        self.btnopenfocusfile.grid(padx=5, pady=(15, 0))
 
-        #кнопка открыть файл
-        self.btnopenfocusfile = customtkinter.CTkButton(tab.tab('focus'), height=33, width=120, fg_color='#010046', text='открыть', command=self.open_file, corner_radius=10)
-        self.btnopenfocusfile.grid(padx = 5, pady = (15,0))
+        # кнопка сохранить
+        self.btnsavefocusfile = customtkinter.CTkButton(tab.tab('focus'), height=33, width=120, fg_color='#010046',text='сохранить', command=self.save_file, corner_radius=10)
+        self.btnsavefocusfile.grid(padx=5, pady=5)
 
-        #кнопка сохранить
-        self.btnsavefocusfile = customtkinter.CTkButton(tab.tab('focus'), height=33, width=120, fg_color='#010046', text='сохранить', command=self.save_file, corner_radius=10)
-        self.btnsavefocusfile.grid(padx = 5, pady = 5)
-
-        #кнопка обнвления
-        self.updatebtn = customtkinter.CTkButton(master=frame1, command=self.uptadewidget, image=ico_uptade)
+        # кнопка обнвления
+        self.updatebtn = customtkinter.CTkButton(master=tab.tab('focus'), command=self.uptadewidget(), image=ico_uptade)
         self.updatebtn.grid(padx=20, pady=30)
+
 
     def uptadewidget(self):
         app.update()
 
     def open_file(self):
-        initial_file = filedialog.askopenfilename(title="Выберете файл содержащий фокусы", filetypes=[("Файл с фокусами",".txt*")])
+        initial_file = filedialog.askopenfilename(title="Выберете файл содержащий фокусы",
+                                                  filetypes=[("Файл с фокусами", ".txt*")])
         if initial_file != "":
             try:
                 with open(initial_file, 'r') as focus_file:
@@ -420,16 +426,19 @@ class App_class(customtkinter.CTk):
                                         if "cost = " in line:
                                             find_cost = line[line.find("cost = ") + len("cost = "):].strip()
                                         if "prerequisite =" in line:
-                                            find_prerequisite = line[line.find("prerequisite = ") + len("prerequisite = "):].strip()
-                                        else: 
+                                            find_prerequisite = line[line.find("prerequisite = ") + len(
+                                                "prerequisite = "):].strip()
+                                        else:
                                             find_prerequisite = None
                                         if "mutually_exclusive =" in line:
-                                            find_mutually_exclusive = line[line.find("mutually_exclusive = ") + len("mutually_exclusive = "):].strip()
-                                        else: 
+                                            find_mutually_exclusive = line[line.find("mutually_exclusive = ") + len(
+                                                "mutually_exclusive = "):].strip()
+                                        else:
                                             find_mutually_exclusive = None
                                         if "}" in line:
                                             focus_block = False
-                                            find_id = focus_class(find_id, find_cost, find_prerequisite, find_mutually_exclusive)
+                                            find_id = focus_class(find_id, find_cost, find_prerequisite,
+                                                                  find_mutually_exclusive)
             except FileNotFoundError:
                 print("Файл с фокусами не был найден!")
 
@@ -453,6 +462,7 @@ class App_class(customtkinter.CTk):
     def save_file(self):
         pass
 
+
 def create_focus_tree(id):
     id = id.upper()
     with open("focus.txt", 'w') as focus_file:
@@ -466,6 +476,7 @@ def create_focus_tree(id):
         }} 
     }}'''
         focus_file.write(focus_tree)
+
 
 def get_key(significance):
     for k, s in tag_coutries.items():

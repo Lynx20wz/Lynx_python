@@ -9,6 +9,7 @@ class App(customtkinter.CTk):
         super().__init__()
         self.geometry("600x500")
         self.title("CTk example")
+        self.bg_image = customtkinter.CTkImage(Image.open("bg.jpg"))
 
         # add widgets to app
         #self.button = customtkinter.CTkButton(self, command=self.button_click)

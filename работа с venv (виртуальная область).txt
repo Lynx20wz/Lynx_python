@@ -1,0 +1,2 @@
+python -m venv venv - создать папку
+venv/Scripts/activate - активировать виртуальную область

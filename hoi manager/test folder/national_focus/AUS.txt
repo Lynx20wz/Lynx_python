@@ -1,0 +1,1093 @@
+focus_tree = {
+	id = AUS_focus
+	country = {
+		factor = 0
+		modifier = {
+			add = 10
+			original_tag = AUS
+		}
+	}
+	continuous_focus_position = { x = 100 y = 1500}
+	
+	initial_show_position = {
+		x = 0
+		y = 0
+	}
+
+	default = no
+
+	#focus = {
+	#	id = AUS_
+	#	icon = GFX_
+	#	cost = 
+	#	prerequisite = {focus = }
+	#	mutually_exclusive = {focus = }
+	#	relative_position_id = 
+	#	x =
+	#	y = 
+
+	#	available_if_capitulated = no
+	#	cancel_if_invalid = yes
+	#	continue_if_invalid = no
+
+	#	available = {
+
+	#	}
+
+	#	bypass = {
+
+	#	}
+
+	#	completion_reward = {
+
+	#	}
+	#}
+
+	focus = {
+		id = AUS_anfach
+		icon = GFX_focus_generic_anti_fascist_diplomacy
+		cost = 10
+		mutually_exclusive = {focus = AUS_FACH}
+		x = 5
+		y = 0
+
+
+		allow_branch = {
+			NOT = {
+			    AND = {
+					has_completed_focus = AUS_FACH
+					has_country_flag = AUS_hid_tree
+				}
+			}
+		}
+
+		available = {has_government = fascism}
+
+		bypass = {NOT = {has_government = fascism}}
+
+		completion_reward = {
+			unlock_decision_tooltip = AUS_izgf
+			news_event = aus_news.3
+			GER = {
+				add_opinion_modifier = {target = AUS modifier = ger_nofr}
+			}
+		}
+	}
+		
+
+	#Левая ветка (комунистическая)
+
+	focus = {
+		id = AUS_PROD_COM
+		icon = GFX_focus_generic_soviet_politics
+		prerequisite = { focus = AUS_anfach}
+		mutually_exclusive = {focus = AUS_STAN}
+		cost = 10
+
+		relative_position_id = AUS_anfach
+		x = -3
+		y = 1
+		offset = {
+			x = 3
+			trigger = {
+				AND = {
+					has_completed_focus = AUS_PROD_COM
+					has_country_flag = AUS_hid_tree
+				}
+			}
+		}
+
+		available = {
+			OR = {
+				fascism < 0.35	
+				NOT = {
+					has_government = fascism
+				}
+			}
+		}
+
+		allow_branch = {
+			NOT = {
+				AND = {
+					has_completed_focus = AUS_STAN
+					has_country_flag = AUS_hid_tree
+				}
+				AND = {
+					has_completed_focus = AUS_FACH
+					has_country_flag = AUS_hid_tree
+				}
+			}
+		}
+
+		bypass = {has_government = communism}
+
+		completion_reward = {
+			mark_focus_tree_layout_dirty = yes
+			add_timed_idea = {
+				idea = aus_prc
+				days = 200
+			}
+		}
+	}
+
+	focus = {
+		id = AUS_RNP
+		icon = GFX_focus_NORDIC_com_selector_army
+		cost = 10
+		prerequisite = {focus = AUS_PROD_COM}
+		relative_position_id = AUS_PROD_COM
+		x = 0
+		y = 1
+
+		cancel_if_invalid = no
+		continue_if_invalid = yes
+
+		available = {communism > 0.15}
+
+		completion_reward = {
+			add_advisor_role = {
+				character = AUS_alfred_klahr
+				activate = yes
+				advisor = {
+					slot = political_advisor
+					idea_token = AUS_com_char
+					traits = {
+						communist_revolutionary
+					}
+				}
+			}
+			set_can_be_fired_in_advisor_role = {
+				character = AUS_alfred_klahr
+				value = no
+			}
+			set_country_flag = AUS_com_adv
+			activate_mission = aus_civil
+			hidden_effect = {unlock_decision_category_tooltip = AUS_civil_com}
+			add_stability = -0.05
+			add_popularity = {
+				ideology = communism
+				popularity = 0.1
+			}
+		}
+	}
+
+	focus = {
+		id = AUS_DZC
+		icon = GFX_focus_SWE_refuge_for_revolutionaries
+		cost = 5
+		prerequisite = {focus = AUS_RNP}
+		relative_position_id = AUS_PROD_COM
+		x = 0
+		y = 2
+
+		available = {communism > 0.25}
+
+		bypass = {
+			has_government = communism
+			has_civil_war = yes	
+		}
+
+		completion_reward = {
+			if = {
+				limit = {communism > 0.5}
+				set_politics = {
+					ruling_party = communism
+					elections_allowed = no
+				}
+			}
+			else = {
+				start_civil_war = {
+					ideology = fascism
+					ruling_party = communism
+					capital = 153
+					states = {848 153}
+				}
+			}
+		}
+	}
+
+	
+	focus = {
+		id = AUS_SOV_FR
+		icon =  GFX_focus_generic_join_comintern
+		prerequisite = {focus = AUS_PROD_COM}
+		cost = 10
+
+		relative_position_id = AUS_PROD_COM
+		x = -2
+		y = 1
+
+		available = {
+			OR = {
+				has_government = neutrality
+				has_government = communism
+			}
+			is_subject = no
+		}
+
+		bypass = {
+			is_in_faction_with = SOV
+		}
+
+		completion_reward = {
+			SOV = {add_opinion_modifier = {target = AUS modifier = sov_fr}}
+		}
+	}
+
+	#По середине (монархия)
+	focus = {
+		id = AUS_STAN
+		icon = GFX_focus_BRA_air_force
+		mutually_exclusive = {focus = AUS_PROD_COM}
+		prerequisite = {focus = AUS_anfach}
+		search_filters = {FOCUS_FILTER_POLITICAL}
+		cost = 10
+
+		relative_position_id = AUS_anfach
+		x = 3
+		y = 1
+		offset = {
+			x = -3
+			trigger = {
+				has_completed_focus = AUS_STAN
+				has_country_flag = AUS_hid_tree
+			}
+		}
+
+		allow_branch = {
+			NOT = {
+				AND = {
+					has_completed_focus = AUS_PROD_COM
+					has_country_flag = AUS_hid_tree
+				}
+				AND = {
+					has_completed_focus = AUS_FACH
+					has_country_flag = AUS_hid_tree
+				}
+			}
+		}
+
+		available = {
+			is_subject = no
+			has_government = neutrality
+		}
+
+		completion_reward = {
+			hidden_effect = {
+				set_cosmetic_tag = AUS_ANTIFACH
+			}
+			mark_focus_tree_layout_dirty = yes
+			add_stability = 0.15
+			add_popularity = {
+				ideology = fascism
+				popularity = -0.3
+				}
+			add_ideas = ideas1
+		}
+	}
+
+
+	##focus = {
+	#	id = AUS_POISK
+	#	icon = GFX_focus_generic_home_defense
+	#	cost = 5
+	#	search_filters = {FOCUS_FILTER_POLITICAL}
+	#	prerequisite ={focus = AUS_STAN}
+	#	relative_position_id = AUS_STAN
+	#	x = 5
+	#	y = 1
+	#	completion_reward = {
+	#		add_political_power = 30
+	#		add_stability = -0.05
+	#	}
+	##}
+
+	focus = {
+		id = AUS_NAC
+		icon = GFX_goal_generic_demand_territory
+		cost = 10
+		search_filters = {FOCUS_FILTER_MANPOWER FOCUS_FILTER_POLITICAL}
+		relative_position_id = AUS_STAN
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = AUS_STAN
+		}
+		completion_reward = {
+			upgrade_economy_law = yes	
+			hidden_effect = {
+				set_cosmetic_tag = AUS
+			}
+			add_manpower = 15000
+			4 = {
+				add_building_construction = {type = industrial_complex  level = 2}
+			}
+			add_stability = 0.05
+		}
+	}
+
+	focus = {
+		id = AUS_GER_SD
+		icon = GFX_goal_generic_intelligence_exchange
+		cost = 10
+		relative_position_id = AUS_NAC
+		x = -1
+		y = 1
+		available = {NOT = {has_war_with = GER}}
+		prerequisite = {focus = AUS_NAC}
+		mutually_exclusive = {focus = AUS_READY_TO_WAR}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			GER = {country_event = aus.1} 
+			custom_effect_tooltip = if_they_accept_tt
+			52 = { set_demilitarized_zone = yes}
+            53 = { set_demilitarized_zone = yes}
+			GER = {give_guarantee = AUS}
+			custom_effect_tooltip = aus_posh
+		}
+	}
+
+	focus = {
+		id = AUS_READY_TO_WAR
+		icon = GFX_goal_generic_construct_military
+		cost = 10
+		prerequisite = {focus = AUS_NAC}
+		mutually_exclusive = {focus = AUS_GER_SD}
+		relative_position_id = AUS_NAC
+		x = 1
+		y = 1
+		available = {
+			is_subject = no
+			AUS = {
+				owns_state = 152
+				owns_state = 153
+				owns_state = 848
+			}
+		}
+		completion_reward = {
+			add_timed_idea ={
+				idea = aus_def
+				days = 300
+			}
+			hidden_effect = {
+				152 = {
+					add_building_construction = {
+						type = bunker
+						level = 2
+						province = 3703
+						instant_build = yes
+					}
+					add_building_construction = {
+						type = bunker
+						level = 2
+						province = 6708
+						instant_build = yes
+					}	
+					add_building_construction = {
+						type = bunker
+						level = 5
+						province = 732
+						instant_build = yes
+					}		
+					add_building_construction = {
+						type = bunker
+						level = 5
+						province = 688
+						instant_build = yes
+					}
+					add_building_construction = {
+						type = bunker
+						level = 5
+						province = 9665
+						instant_build = yes
+					}		
+				}
+				153 = {
+					add_building_construction = {
+						type = bunker
+						level = 2
+						province = 3675
+						instant_build = yes
+					}
+					add_building_construction = {
+						type = bunker
+						level = 2
+						province = 11634
+						instant_build = yes
+					}	
+					add_building_construction = {
+						type = bunker
+						level = 2
+						province = 9636
+						instant_build = yes
+					}		
+					add_building_construction = {
+						type = bunker
+						level = 5
+						province = 673
+						instant_build = yes
+					}
+				}
+				848 = {
+					add_building_construction = {
+						type = bunker
+						level = 2
+						province = 6680
+						instant_build = yes
+					}
+					add_building_construction = {
+						type = bunker
+						level = 2
+						province = 6678
+						instant_build = yes
+					}
+				}		
+			}
+				custom_effect_tooltip = aus_zas
+		}
+	}
+
+	focus = {
+		id = AUS_ZASS
+		icon = GFX_focus_PAR_pull_back_troops_from_the_chaco
+		relative_position_id = AUS_ZAHUN
+		prerequisite = {focus = AUS_HUN_OB}
+		x = 0
+		y = 2
+		cost = 10
+		offset = {
+			trigger = {
+				has_completed_focus = AUS_FACH
+			}
+			x = 0
+		}
+		search_filters = {FOCUS_FILTER_ANNEXATION}
+		completion_reward = {
+			custom_effect_tooltip = aus.eks
+			add_state_claim = 102
+			add_state_claim = 853
+			hidden_effect = {
+				102 = {controller = {country_event = aus.7}}
+				853 = {controller = {country_event = aus.7}}
+			}
+		}
+	}
+
+	focus = {
+		id = AUS_ZAHUN
+		icon = GFX_focus_FIN_integrate_kola_and_karelia
+		prerequisite = {
+			focus = AUS_GER_SD
+			focus = AUS_READY_TO_WAR
+			focus = AUS_VOST_MON 
+		}
+		search_filters = {FOCUS_FILTER_ANNEXATION}
+		x = 13
+		y = 4
+		offset = {
+			x = -5
+			trigger = {
+				has_completed_focus = AUS_anfach
+			}
+		}
+		offset = {
+			x = -3
+			trigger = {
+				AND = {
+					has_completed_focus = AUS_STAN
+				}
+				has_country_flag = AUS_hid_tree
+			}
+		}
+		offset = {
+			x = -10
+			y = -1
+			trigger = {
+				has_completed_focus = AUS_FACH
+				has_country_flag = AUS_hid_tree
+			}
+		}
+		offset = {
+			x = 3
+			trigger = {
+				has_completed_focus = AUS_FACH
+				NOT = {
+					has_country_flag = AUS_hid_tree
+				}
+			}
+		}
+		cost = 10
+		completion_reward = {
+			HUN = {
+				country_event = aus.8
+			}
+			custom_effect_tooltip = aus.prne
+			add_state_claim = 43
+			add_state_claim = 154
+			add_state_claim = 155
+		}
+	}
+
+	focus = {
+		id = AUS_HUN_OB
+		icon = GFX_focus_proclaim_the_restauration_of_Austria_Hungary
+		prerequisite = {focus = AUS_ZAHUN }
+		search_filters = {FOCUS_FILTER_ANNEXATION}
+		relative_position_id = AUS_ZAHUN
+		available = {
+			is_subject = no
+			any_state = {
+				is_core_of = HUN
+				is_owned_by = AUS
+			}
+		}
+		bypass = {
+			has_global_flag = form_austria_hungary_flag
+		}
+		x = 0
+		y = 1
+		cost = 5
+		completion_reward = {
+			add_political_power = 50
+			set_major = yes
+			set_cosmetic_tag = HUN_EMPIRE
+		}
+	}
+
+	focus = {
+		id = AUS_DIP
+		prerequisite = {focus = AUS_ZASS}
+		mutually_exclusive = {focus = AUS_POSR} 
+		icon = GFX_goal_anschluss
+		relative_position_id = AUS_ZASS
+		x = -1
+		y = 1
+		available = {
+			is_subject = no
+			has_war = no
+		}
+		cost = 5
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ANNEXATION }
+		completion_reward = {
+			if = {
+				limit = {
+					YUG = {
+						is_subject = no
+						exists = yes
+					}
+				}
+				YUG = {
+					country_event = aus.11
+				}
+			}
+			if = {
+				limit = {
+					ROM = {
+						is_subject = no
+						exists = yes
+					}
+				}
+				ROM = {
+					country_event = aus.11
+				}
+			}		
+		}
+	}
+
+	focus = {
+		id = AUS_POSR
+		prerequisite = {focus = AUS_ZASS}
+		mutually_exclusive = {focus = AUS_DIP} 
+		icon = GFX_goal_generic_forceful_treaty
+		relative_position_id = AUS_ZASS
+		x = 1
+		y = 1
+		available = {
+			#is_subject = no
+			has_war = no
+		}
+		cost = 5
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ANNEXATION }
+		completion_reward = {
+			country_event = aus.14  
+		}
+	}
+
+
+	focus = {
+		id = AUS_REIMP
+		icon = GFX_focus_Aus_Hun_imp
+		prerequisite = {focus = AUS_DIP focus = AUS_POSR}
+		relative_position_id = AUS_ZASS
+		x = 0
+		y = 2
+
+		available = {
+			is_subject = no
+			hidden_trigger = {
+				controls_state = 102
+				controls_state = 853
+				controls_state = 103
+				controls_state = 104
+				controls_state = 804
+				controls_state = 109
+				controls_state = 45
+				controls_state = 83
+				controls_state = 76
+				controls_state = 84
+				controls_state = 764
+				controls_state = 82
+			}
+			
+			any_state = {
+				is_core_of = CZE
+				is_owned_by = AUS
+			}
+			any_state = {
+				is_core_of = HUN
+				is_owned_by = AUS
+			}
+			any_state = {
+				is_core_of = AUS
+				is_owned_by = AUS
+			}
+		}	
+		
+		cost = 20
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			add_ideas = aus_imp
+			if = {
+				limit = {
+					NOT = { tag = AUS }
+				}
+				AUS = { set_cosmetic_tag = AUS_NOT_WHITE }
+			}
+			custom_effect_tooltip = aus_hun_core
+			hidden_effect = {
+				102 = { add_core_of = ROOT }
+				853 = { add_core_of = ROOT }
+				103 = { add_core_of = ROOT }
+				104 = { add_core_of = ROOT }
+				804 = { add_core_of = ROOT }
+				109 = { add_core_of = ROOT }
+				45 = { add_core_of = ROOT }
+				83 = { add_core_of = ROOT }
+				76 = { add_core_of = ROOT }
+				84 = { add_core_of = ROOT }
+				39 = { add_core_of = ROOT }
+				163 = { add_core_of = ROOT }
+				736 = { add_core_of = ROOT }
+				852 = { add_core_of = ROOT }
+				850 = { add_core_of = ROOT }
+				764 = { add_core_of = ROOT }
+				82 = { add_core_of = ROOT }
+				848 = { add_core_of = ROOT }
+				153 = { add_core_of = ROOT }
+				152 = { add_core_of = ROOT }
+				4 = { add_core_of = ROOT }
+				69 = { add_core_of = ROOT }
+				9 = { add_core_of = ROOT }
+				75 = { add_core_of = ROOT }
+				74 = { add_core_of = ROOT }
+				72 = { add_core_of = ROOT }
+				70 = { add_core_of = ROOT }
+				664 = { add_core_of = ROOT }
+				71 = { add_core_of = ROOT }
+				73 = { add_core_of = ROOT }
+				155 = { add_core_of = ROOT }
+				43 = { add_core_of = ROOT }
+				154 = { add_core_of = ROOT }
+			}
+
+			hidden_effect = {
+				news_event = { id = wtt_news.56 hours = 6 }
+				set_global_flag = form_austria_hungary_flag
+			}
+		}
+	}	
+
+	focus = {
+		id = AUS_TER_IMP
+		prerequisite = {focus = AUS_REIMP}
+		icon = GFX_goal_anschluss
+		relative_position_id = AUS_ZASS
+		x = 0
+		y = 3
+		available = {
+			is_subject = no
+		}
+		cost = 20
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_ANNEXATION }
+		completion_reward = {
+			add_ideas = aus_ter_imp
+		}
+	}
+
+	#Правая ветка (фашизм)
+	focus = {
+		id = AUS_FACH
+		icon = GFX_focus_generic_strike_at_democracy1
+		cost = 10
+		x = 20
+		y = 0
+		search_filters = {FOCUS_FILTER_POLITICAL}
+		offset = {
+			x = -13
+			trigger = {
+				has_completed_focus = AUS_FACH
+				has_country_flag = AUS_hid_tree
+			}
+		}
+		available = {
+			OR = {
+				has_government = neutrality
+				has_government = fascism
+			}
+			
+			OR = {
+				is_subject = no
+				is_subject_of = GER
+			}
+			
+			NOT = {
+				has_war_with = GER
+			}
+
+			GER = {
+				has_government = fascism
+			}
+		}
+		bypass = {
+			is_in_faction_with = GER
+		}
+		allow_branch = {
+			NOT = {
+			    AND = {
+					has_completed_focus = AUS_anfach
+					has_country_flag = AUS_hid_tree
+				}
+			}
+		}
+		mutually_exclusive = {focus = AUS_anfach}
+		completion_reward = {
+			add_stability = -0.05
+			mark_focus_tree_layout_dirty = yes
+			add_political_power = -50
+			add_timed_idea = {
+				idea = aus_prf
+				days = 200
+			}
+		}
+	}
+	
+
+	focus = {
+		id = AUS_GER_FR
+		icon = GFX_focus_chi_mission_to_germany
+		relative_position_id = AUS_FACH
+		prerequisite = {focus = AUS_FACH}
+		cost = 10
+		x = 2
+		y = 1
+		available = {
+			GER = {exists = yes}
+		}
+		search_filters = {FOCUS_FILTER_POLITICAL}
+		completion_reward = {
+			add_stability = -0.15
+			add_political_power = -20
+			GER = {
+				add_opinion_modifier = {target = AUS modifier = ger_fr}
+			}
+			IF = {
+				limit = {
+					any_other_country = {
+						original_tag = GER
+						original_tag = AUS
+					}	
+				}
+				news_event = aus_news.1
+			}
+			
+		}
+	}
+
+	focus = {
+		id = AUS_ITA_FR
+		icon = GFX_focus_befriend_italy
+		relative_position_id = AUS_GER_FR
+		cost = 10
+		available = {
+			NOT = {
+				has_war_with = ITA
+			}
+		}
+		prerequisite = {
+			focus = AUS_GER_FR
+		}
+		x = 2
+		y = 1
+		completion_reward = {
+			add_political_power = -10
+			ITA = {
+				add_opinion_modifier = {target = AUS modifier = ita_fr}
+			}
+		}
+	}
+
+	focus = {
+		id = AUS_ITA_TR
+		icon = GFX_focus_befriend_italy
+		relative_position_id = AUS_GER_FR
+		cost = 10
+		available = {
+			NOT = {
+				has_war_with = ITA
+			}
+		}
+		prerequisite = {
+			focus = AUS_ITA_FR
+		}
+		x = 2
+		y = 2
+		completion_reward = {
+			ITA = {
+				country_event = aus.16
+			}
+		}
+	}
+
+
+
+	focus = {
+		id = AUS_JAXIS
+		icon = GFX_goal_generic_alliance
+		relative_position_id = AUS_GER_FR
+		cost = 10
+		search_filters = {FOCUS_FILTER_POLITICAL}
+		prerequisite = {focus = AUS_GER_FR}
+		prerequisite = {focus = AUS_PROD_FASH}
+		mutually_exclusive = {focus = AUS_VOST_MON}
+		x = 0
+		y = 1
+		available = {
+			is_in_faction = no
+		}
+		completion_reward = {
+			GER = {
+				country_event = generic.2
+			}
+		}
+	}
+	focus = {
+		id = AUS_PROD_FASH
+		icon = GFX_goal_support_fascism
+		relative_position_id = AUS_FACH
+		cost = 10
+		prerequisite = {focus = AUS_FACH}
+		x = -2
+		y = 1
+		completion_reward = {
+			add_stability = 0.05
+			add_political_power = 20
+			swap_ideas = {
+				remove_idea = aus_prf
+    			add_idea = aus_prfp
+				days = 140
+			}
+		}
+	}
+	focus = {
+		id = AUS_VOST_MON
+		icon = GFX_focus_generic_home_defense
+		relative_position_id = AUS_PROD_FASH
+		cost = 10
+		prerequisite = {focus = AUS_PROD_FASH}
+		mutually_exclusive = {focus = AUS_JAXIS}
+		x = -2
+		y = 1
+		completion_reward = {
+			add_political_power = 100
+			add_stability = 0.05
+			custom_effect_tooltip = every_fasc
+			news_event = aus_news.2
+				
+			#add_opinion_modifier = {target = AUS modifier = vost_mon}
+		}
+	}
+	focus = {
+		id = AUS_GER_FR1
+		icon = GFX_goal_generic_improve_relations
+		relative_position_id = AUS_JAXIS
+		prerequisite = {focus = AUS_JAXIS}
+		cost = 10
+		available = {
+			is_subject = no
+			NOT = {
+				has_war_with = GER
+			}
+		}
+		x = 0
+		y = 1
+		completion_reward = {
+			GER = {
+				country_event = aus.4
+			}
+		}
+	}
+	focus = {
+		id = AUS_CZE_RASP
+		icon = GFX_goal_generic_forceful_treaty
+		relative_position_id = AUS_JAXIS
+		cost = 10
+		search_filters = {FOCUS_FILTER_ANNEXATION}
+		prerequisite = {
+			focus = AUS_GER_FR1
+		}
+		x = 0
+		y = 2
+		completion_reward = {
+			
+		}
+	}
+
+	#АРМИЯ
+	focus = {
+		id = AUS_REF_ARMY
+		icon = GFX_goal_generic_axis_build_infantry
+		offset = {
+			x = -12
+			trigger = {
+			    AND = {
+					has_completed_focus = AUS_FACH
+					has_country_flag = AUS_hid_tree
+				}
+			}
+		}
+		offset = {
+			x = -15
+			trigger = {
+				AND = {
+					has_completed_focus = AUS_anfach
+					has_country_flag = AUS_hid_tree
+				}
+			}
+		}
+	
+		cost = 10
+		x = 30
+		y = 0
+		completion_reward = {
+			army_experience = 25
+			add_doctrine_cost_reduction = {
+				name = land_doc_bonus
+				cost_reduction = 0.5
+				uses = 2
+				category = land_doctrine
+			}
+		}
+	}
+	focus = {
+		id = AUS_RAZ_VPOM
+		icon = GFX_goal_generic_construct_mil_factory
+		relative_position_id = AUS_REF_ARMY
+		cost = 10
+		prerequisite = {focus = AUS_REF_ARMY}
+		x = -2
+		y = 1
+		completion_reward = {
+			add_ideas = aus_rvp
+			random_controlled_state = {
+				add_building_construction = {
+					type = arms_factory
+					level = 3
+					instant_build = yes
+				}
+			}
+		}
+	}
+	focus = {
+		id = AUS_HUN_LEN
+		icon = GFX_goal_generic_intelligence_exchange
+		relative_position_id = AUS_REF_ARMY
+		cost = 10
+		prerequisite = {
+			focus = AUS_RAZ_VPOM
+		}
+		available = {
+			HUN = {
+				exists = yes
+				has_government = neutrality
+			}
+		}
+		bypass = {
+			HUN = {
+				exists = yes
+				is_licensing_to = {
+					target = AUS
+					equipment = {
+						type = infantry_equipment_1
+						version = 0
+					}
+				}
+			}
+		}
+		x = -2
+		y = 2
+		completion_reward = {
+			HUN = {
+				create_production_license = {
+					target = AUS
+					cost_factor = 2
+					equipment = {
+						type = infantry_equipment_1
+						version = 0	
+					}
+				}
+			}
+		}
+	}
+	focus = {
+		id = AUS_VZAV
+		icon = GFX_goal_generic_production
+		relative_position_id = AUS_REF_ARMY
+		cost = 10
+		prerequisite = {
+			focus = AUS_REF_ARMY
+		}
+		x = 2
+		y = 1
+		completion_reward = {
+			random_owned_controlled_state = {
+				add_building_construction = {
+					type = industrial_complex
+					level = 3
+				}
+			}
+			#4 = {
+			#	add_extra_state_shared_building_slots = 2
+			#}
+		}	
+	}	
+
+	focus = {
+		id = AUS_
+		#icon = GFX_
+		cost = 10
+		prerequisite = {focus = AUS_}
+		mutually_exclusive = {focus = AUS_}
+		relative_position_id = AUS_
+		x = x
+		y = x
+
+		available = {
+
+		}
+
+		completion_reward = {
+
+		}
+	}
+
+}

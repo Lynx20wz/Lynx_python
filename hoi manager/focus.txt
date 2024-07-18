@@ -1,0 +1,9 @@
+focus_tree = {
+    id = MOD_focus_tree
+    country = {
+        factor = 0
+        modifier = {
+            add = 15
+            original_tag = MOD
+        } 
+    }

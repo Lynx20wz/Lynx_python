@@ -3,7 +3,8 @@
         "ARG_roberto_maria_ortiz": {
             "id": "ARG_roberto_maria_ortiz",
             "prerequisite": "ARG_roberto_maria_ortiz",
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "ARG_work_with_the_nationalists"
         },
         "ARG_work_with_the_nationalists": {
             "id": "ARG_work_with_the_nationalists",
@@ -11,62 +12,74 @@
                 "ARG_defense_and_democracy",
                 "ARG_work_with_the_nationalists"
             ],
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "ARG_defense_and_democracy"
         },
         "ARG_british_cooperation": {
             "id": "ARG_british_cooperation",
             "prerequisite": "ARG_defense_and_democracy",
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         },
         "ARG_cut_ties_with_britain": {
             "id": "ARG_cut_ties_with_britain",
             "prerequisite": "ARG_work_with_the_nationalists",
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         },
         "ARG_the_castillo_cabinet": {
             "id": "ARG_the_castillo_cabinet",
             "prerequisite": "ARG_british_cooperation",
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         },
         "ARG_emphasis_on_public_works": {
             "id": "ARG_emphasis_on_public_works",
             "prerequisite": "ARG_import_substitution",
-            "cost": "5"
+            "cost": "5",
+            "mutually_exclusive": "None"
         },
         "ARG_towards_a_greater_argentina": {
             "id": "ARG_towards_a_greater_argentina",
             "prerequisite": "ARG_emphasis_on_public_works",
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         },
         "ARG_universidad_de_buenos_aires": {
             "id": "ARG_universidad_de_buenos_aires",
             "prerequisite": "ARG_towards_a_greater_argentina",
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         },
         "ARG_consolidating_power": {
             "id": "ARG_consolidating_power",
             "prerequisite": "ARG_the_castillo_cabinet",
+            "mutually_exclusive": "ARG_maintain_the_status_quo",
             "cost": "10"
         },
         "ARG_maintain_the_status_quo": {
             "id": "ARG_maintain_the_status_quo",
             "prerequisite": "ARG_the_castillo_cabinet",
+            "mutually_exclusive": "ARG_consolidating_power",
             "cost": "5"
         },
         "ARG_march_to_la_casa_rosada": {
             "id": "ARG_march_to_la_casa_rosada",
             "prerequisite": "ARG_maintain_the_status_quo",
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         },
         "ARG_balancing_act": {
             "id": "ARG_balancing_act",
             "prerequisite": "ARG_march_to_la_casa_rosada",
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         },
         "ARG_subdue_dissension": {
             "id": "ARG_subdue_dissension",
             "prerequisite": "ARG_intervenciones_federales",
-            "cost": "5"
+            "cost": "5",
+            "mutually_exclusive": "None"
         },
         "ARG_the_american_push": {
             "id": "ARG_the_american_push",
@@ -74,107 +87,128 @@
                 "ARG_balancing_act",
                 "ARG_subdue_dissension"
             ],
-            "cost": "5"
+            "cost": "5",
+            "mutually_exclusive": "None"
         },
         "ARG_juan_peron_elected": {
             "id": "ARG_juan_peron_elected",
             "prerequisite": "ARG_balancing_act",
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         },
         "ARG_peronism": {
             "id": "ARG_peronism",
             "prerequisite": "ARG_juan_peron_elected",
-            "cost": "5"
+            "cost": "5",
+            "mutually_exclusive": "None"
         },
         "ARG_maintain_neutrality": {
             "id": "ARG_maintain_neutrality",
             "prerequisite": "ARG_the_american_push",
+            "mutually_exclusive": "ARG_join_the_allies",
             "cost": "10"
         },
         "ARG_support_radical_nationalism": {
             "id": "ARG_support_radical_nationalism",
             "prerequisite": "ARG_cut_ties_with_britain",
-            "cost": "5"
+            "cost": "5",
+            "mutually_exclusive": "None"
         },
         "ARG_corporatism": {
             "id": "ARG_corporatism",
             "prerequisite": "ARG_cut_ties_with_britain",
-            "cost": "5"
+            "cost": "5",
+            "mutually_exclusive": "None"
         },
         "ARG_reestablish_ligas_patrioticas": {
             "id": "ARG_reestablish_ligas_patrioticas",
             "prerequisite": "ARG_corporatism",
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         },
         "ARG_fascist_researchers": {
             "id": "ARG_fascist_researchers",
             "prerequisite": "ARG_reestablish_ligas_patrioticas",
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         },
         "ARG_hitler_1": {
             "id": "ARG_hitler_1",
             "prerequisite": "ARG_reestablish_ligas_patrioticas",
-            "cost": "5"
+            "cost": "5",
+            "mutually_exclusive": "None"
         },
         "ARG_hitler_2": {
             "id": "ARG_hitler_2",
             "prerequisite": "ARG_hitler_1",
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         },
         "ARG_hitler_3": {
             "id": "ARG_hitler_3",
             "prerequisite": "ARG_hitler_1",
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         },
         "ARG_hitler_4": {
             "id": "ARG_hitler_4",
             "prerequisite": "ARG_hitler_1",
-            "cost": "5"
+            "cost": "5",
+            "mutually_exclusive": "None"
         },
         "ARG_support_the_spanish_coup": {
             "id": "ARG_support_the_spanish_coup",
             "prerequisite": "ARG_cut_ties_with_britain",
-            "cost": "5"
+            "cost": "5",
+            "mutually_exclusive": "None"
         },
         "ARG_demand_spanish_compensation": {
             "id": "ARG_demand_spanish_compensation",
             "prerequisite": "ARG_support_the_spanish_coup",
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         },
         "ARG_invite_spanish_nationalists": {
             "id": "ARG_invite_spanish_nationalists",
             "prerequisite": "ARG_support_the_spanish_coup",
-            "cost": "5"
+            "cost": "5",
+            "mutually_exclusive": "None"
         },
         "ARG_encourage_german_investments": {
             "id": "ARG_encourage_german_investments",
             "prerequisite": "ARG_support_radical_nationalism",
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         },
         "ARG_encourage_italian_argentine_diplomacy": {
             "id": "ARG_encourage_italian_argentine_diplomacy",
             "prerequisite": "ARG_support_radical_nationalism",
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         },
         "ARG_guardia_nacional": {
             "id": "ARG_guardia_nacional",
             "prerequisite": "ARG_encourage_german_investments",
+            "mutually_exclusive": "ARG_union_nacional_fascista",
             "cost": "10"
         },
         "ARG_union_nacional_fascista": {
             "id": "ARG_union_nacional_fascista",
             "prerequisite": "ARG_encourage_italian_argentine_diplomacy",
+            "mutually_exclusive": "ARG_guardia_nacional",
             "cost": "10"
         },
         "ARG_rapid_militirization": {
             "id": "ARG_rapid_militirization",
             "prerequisite": "ARG_guardia_nacional",
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         },
         "ARG_argentine_nationalism": {
             "id": "ARG_argentine_nationalism",
             "prerequisite": "ARG_union_nacional_fascista",
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         },
         "ARG_war_division": {
             "id": "ARG_war_division",
@@ -182,16 +216,19 @@
                 "ARG_rapid_militirization",
                 "ARG_argentine_nationalism"
             ],
-            "cost": "5"
+            "cost": "5",
+            "mutually_exclusive": "None"
         },
         "ARG_argentina_first": {
             "id": "ARG_argentina_first",
             "prerequisite": "ARG_war_division",
+            "mutually_exclusive": "ARG_join_the_axis",
             "cost": "10"
         },
         "ARG_join_the_axis": {
             "id": "ARG_join_the_axis",
             "prerequisite": "ARG_war_division",
+            "mutually_exclusive": "ARG_argentina_first",
             "cost": "10"
         },
         "ARG_our_own_path": {
@@ -200,7 +237,8 @@
                 "ARG_maintain_neutrality",
                 "ARG_argentina_first"
             ],
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         },
         "ARG_dominate_the_south": {
             "id": "ARG_dominate_the_south",
@@ -209,21 +247,25 @@
                 "ARG_join_the_axis",
                 "ARG_maintain_neutrality"
             ],
+            "mutually_exclusive": "ARG_align_with_the_monroe_doctrine",
             "cost": "10"
         },
         "ARG_preparations_for_war": {
             "id": "ARG_preparations_for_war",
             "prerequisite": "ARG_dominate_the_south",
-            "cost": "5"
+            "cost": "5",
+            "mutually_exclusive": "None"
         },
         "ARG_conquer_paraguay": {
             "id": "ARG_conquer_paraguay",
             "prerequisite": "ARG_dominate_the_south",
+            "mutually_exclusive": "ARG_conquer_paraguay",
             "cost": "10"
         },
         "ARG_revive_the_colonial_plan": {
             "id": "ARG_revive_the_colonial_plan",
             "prerequisite": "ARG_cut_ties_with_britain",
+            "mutually_exclusive": "ARG_conquer_uruguay",
             "cost": "10"
         },
         "ARG_conquer_uruguay": {
@@ -232,6 +274,7 @@
                 "ARG_conquer_paraguay",
                 "ARG_paraguayan_ultimatum"
             ],
+            "mutually_exclusive": "ARG_chilean_ultimatum",
             "cost": "10"
         },
         "ARG_chilean_ultimatum": {
@@ -240,6 +283,7 @@
                 "ARG_conquer_paraguay",
                 "ARG_paraguayan_ultimatum"
             ],
+            "mutually_exclusive": "ARG_reach_out_to_chile",
             "cost": "10"
         },
         "ARG_the_old_enemy": {
@@ -248,62 +292,78 @@
                 "ARG_reach_out_to_chile",
                 "ARG_chilean_ultimatum"
             ],
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         },
         "ARG_south_american_unity": {
             "id": "ARG_south_american_unity",
             "prerequisite": "ARG_the_old_enemy",
-            "cost": "5"
+            "cost": "5",
+            "mutually_exclusive": "None"
         },
         "ARG_integrate_operation_bolivar": {
             "id": "ARG_integrate_operation_bolivar",
             "prerequisite": "ARG_dominate_the_south",
-            "cost": "5"
+            "cost": "5",
+            "mutually_exclusive": "None"
         },
         "ARG_release_hellmuth": {
             "id": "ARG_release_hellmuth",
             "prerequisite": "ARG_release_hellmuth",
-            "cost": "5"
+            "cost": "5",
+            "mutually_exclusive": "None"
         },
         "ARG_the_war_machine": {
             "id": "ARG_the_war_machine",
             "prerequisite": "ARG_the_war_machine",
-            "cost": "5"
+            "cost": "5",
+            "mutually_exclusive": "None"
         },
         "ARG_argentine_island_sovereignty": {
             "id": "ARG_argentine_island_sovereignty",
             "prerequisite": "ARG_secure_the_borders",
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         },
         "ARG_the_clean_election": {
             "id": "ARG_the_clean_election",
             "prerequisite": "ARG_preparation_for_the_elections",
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": [
+                "ARG_roberto_maria_ortiz",
+                "ARG_a_call_to_reform",
+                "ARG_com"
+            ]
         },
         "ARG_in_memory_of_yrigoyen": {
             "id": "ARG_in_memory_of_yrigoyen",
             "prerequisite": "ARG_the_clean_election",
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         },
         "ARG_anti_corruption_policies": {
             "id": "ARG_anti_corruption_policies",
             "prerequisite": "ARG_in_memory_of_yrigoyen",
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         },
         "ARG_promote_urbanization": {
             "id": "ARG_promote_urbanization",
             "prerequisite": "ARG_in_memory_of_yrigoyen",
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         },
         "ARG_a_true_democracy": {
             "id": "ARG_a_true_democracy",
             "prerequisite": "ARG_anti_corruption_policies",
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         },
         "ARG_secure_the_opposition": {
             "id": "ARG_secure_the_opposition",
             "prerequisite": "ARG_promote_urbanization",
-            "cost": "5"
+            "cost": "5",
+            "mutually_exclusive": "None"
         },
         "ARG_argentina_for_all": {
             "id": "ARG_argentina_for_all",
@@ -311,56 +371,76 @@
                 "ARG_a_true_democracy",
                 "ARG_secure_the_opposition"
             ],
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         },
         "ARG_reinforce_the_education_system": {
             "id": "ARG_reinforce_the_education_system",
             "prerequisite": "ARG_anti_corruption_policies",
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         },
         "ARG_university_reforms": {
             "id": "ARG_university_reforms",
             "prerequisite": "ARG_reinforce_the_education_system",
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         },
         "ARG_regulated_national_salaries": {
             "id": "ARG_regulated_national_salaries",
             "prerequisite": "ARG_promote_urbanization",
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         },
         "ARG_social_welfare_fund": {
             "id": "ARG_social_welfare_fund",
             "prerequisite": "ARG_regulated_national_salaries",
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         },
         "ARG_internal_focus": {
             "id": "ARG_internal_focus",
             "prerequisite": "ARG_argentina_for_all",
+            "mutually_exclusive": [
+                "ARG_seek_american_support",
+                "ARG_british_gaurantee"
+            ],
             "cost": "5"
         },
         "ARG_alvears_democracy": {
             "id": "ARG_alvears_democracy",
             "prerequisite": "ARG_internal_focus",
-            "cost": "5"
+            "cost": "5",
+            "mutually_exclusive": "None"
         },
         "ARG_british_gaurantee": {
             "id": "ARG_british_gaurantee",
             "prerequisite": "ARG_argentina_for_all",
+            "mutually_exclusive": [
+                "ARG_seek_american_support",
+                "ARG_internal_focus"
+            ],
             "cost": "5"
         },
         "ARG_seek_american_support": {
             "id": "ARG_seek_american_support",
             "prerequisite": "ARG_argentina_for_all",
+            "mutually_exclusive": [
+                "ARG_british_gaurantee",
+                "ARG_internal_focus"
+            ],
             "cost": "5"
         },
         "ARG_royal_airforce_influence": {
             "id": "ARG_royal_airforce_influence",
             "prerequisite": "ARG_british_gaurantee",
+            "mutually_exclusive": "ARG_royal_navy_influence",
             "cost": "5"
         },
         "ARG_royal_navy_influence": {
             "id": "ARG_royal_navy_influence",
             "prerequisite": "ARG_british_gaurantee",
+            "mutually_exclusive": "ARG_royal_airforce_influence",
             "cost": "5"
         },
         "ARG_reinforced_alliance": {
@@ -369,16 +449,19 @@
                 "ARG_royal_navy_influence",
                 "ARG_royal_airforce_influence"
             ],
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         },
         "ARG_us_army_training": {
             "id": "ARG_us_army_training",
             "prerequisite": "ARG_seek_american_support",
+            "mutually_exclusive": "ARG_american_defense_investments",
             "cost": "10"
         },
         "ARG_american_defense_investments": {
             "id": "ARG_american_defense_investments",
             "prerequisite": "ARG_seek_american_support",
+            "mutually_exclusive": "ARG_us_army_training",
             "cost": "10"
         },
         "ARG_joint_military_exercises": {
@@ -387,7 +470,8 @@
                 "ARG_us_army_training",
                 "ARG_american_defense_investments"
             ],
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         },
         "ARG_join_the_allies": {
             "id": "ARG_join_the_allies",
@@ -396,6 +480,10 @@
                 "ARG_reinforced_alliance",
                 "ARG_alvears_democracy",
                 "ARG_the_american_push"
+            ],
+            "mutually_exclusive": [
+                "ARG_bastion_of_democracy",
+                "ARG_maintain_neutrality"
             ],
             "cost": "10"
         },
@@ -406,6 +494,7 @@
                 "ARG_reinforced_alliance",
                 "ARG_alvears_democracy"
             ],
+            "mutually_exclusive": "ARG_join_the_allies",
             "cost": "10"
         },
         "ARG_align_with_the_monroe_doctrine": {
@@ -414,47 +503,56 @@
                 "ARG_join_the_allies",
                 "ARG_bastion_of_democracy"
             ],
+            "mutually_exclusive": "ARG_dominate_the_south",
             "cost": "5"
         },
         "ARG_south_american_alliance": {
             "id": "ARG_south_american_alliance",
             "prerequisite": "ARG_align_with_the_monroe_doctrine",
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         },
         "ARG_bolstering_the_army": {
             "id": "ARG_bolstering_the_army",
             "prerequisite": "ARG_south_american_alliance",
-            "cost": "5"
+            "cost": "5",
+            "mutually_exclusive": "None"
         },
         "ARG_the_second_argentine_republic": {
             "id": "ARG_the_second_argentine_republic",
             "prerequisite": "ARG_bolstering_the_army",
-            "cost": "5"
+            "cost": "5",
+            "mutually_exclusive": "None"
         },
         "ARG_envoy_to_london": {
             "id": "ARG_envoy_to_london",
             "prerequisite": "ARG_align_with_the_monroe_doctrine",
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         },
         "ARG_study_the_battle_of_the_river_plate": {
             "id": "ARG_study_the_battle_of_the_river_plate",
             "prerequisite": "ARG_envoy_to_london",
-            "cost": "5"
+            "cost": "5",
+            "mutually_exclusive": "None"
         },
         "ARG_islas_del_atlantico_sur": {
             "id": "ARG_islas_del_atlantico_sur",
             "prerequisite": "ARG_envoy_to_london",
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         },
         "ARG_improving_the_islands": {
             "id": "ARG_improving_the_islands",
             "prerequisite": "ARG_islas_del_atlantico_sur",
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         },
         "ARG_firmes_volamos": {
             "id": "ARG_firmes_volamos",
             "prerequisite": "ARG_study_the_battle_of_the_river_plate",
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         },
         "ARG_extinguish_south_american_fascism": {
             "id": "ARG_extinguish_south_american_fascism",
@@ -462,32 +560,38 @@
                 "ARG_firmes_volamos",
                 "ARG_the_second_argentine_republic"
             ],
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         },
         "ARG_american_allyship": {
             "id": "ARG_american_allyship",
             "prerequisite": "ARG_align_with_the_monroe_doctrine",
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         },
         "ARG_us_marine_program": {
             "id": "ARG_us_marine_program",
             "prerequisite": "ARG_american_allyship",
-            "cost": "5"
+            "cost": "5",
+            "mutually_exclusive": "None"
         },
         "ARG_counter_intelligence_program": {
             "id": "ARG_counter_intelligence_program",
             "prerequisite": "ARG_american_allyship",
-            "cost": "5"
+            "cost": "5",
+            "mutually_exclusive": "None"
         },
         "ARG_end_operation_bolivar": {
             "id": "ARG_end_operation_bolivar",
             "prerequisite": "ARG_counter_intelligence_program",
-            "cost": "5"
+            "cost": "5",
+            "mutually_exclusive": "None"
         },
         "ARG_encourage_the_red_scare": {
             "id": "ARG_encourage_the_red_scare",
             "prerequisite": "ARG_us_marine_program",
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         },
         "ARG_extinguish_south_american_communism": {
             "id": "ARG_extinguish_south_american_communism",
@@ -495,37 +599,47 @@
                 "ARG_encourage_the_red_scare",
                 "ARG_the_second_argentine_republic"
             ],
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         },
         "ARG_a_call_to_reform": {
             "id": "ARG_a_call_to_reform",
             "prerequisite": "ARG_preparation_for_the_elections",
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": [
+                "ARG_roberto_maria_ortiz",
+                "ARG_the_clean_election"
+            ]
         },
         "ARG_invite_ghioldi_back_to_argentina": {
             "id": "ARG_invite_ghioldi_back_to_argentina",
             "prerequisite": "ARG_a_call_to_reform",
-            "cost": "5"
+            "cost": "5",
+            "mutually_exclusive": "None"
         },
         "ARG_support_the_spanish_republicans": {
             "id": "ARG_support_the_spanish_republicans",
             "prerequisite": "ARG_a_call_to_reform",
-            "cost": "5"
+            "cost": "5",
+            "mutually_exclusive": "None"
         },
         "ARG_legitimize_the_PCA": {
             "id": "ARG_legitimize_the_PCA",
             "prerequisite": "ARG_invite_ghioldi_back_to_argentina",
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         },
         "ARG_reach_out_to_the_soviet_union": {
             "id": "ARG_reach_out_to_the_soviet_union",
             "prerequisite": "ARG_legitimize_the_PCA",
-            "cost": "5"
+            "cost": "5",
+            "mutually_exclusive": "None"
         },
         "ARG_unite_the_workers_of_argentina": {
             "id": "ARG_unite_the_workers_of_argentina",
             "prerequisite": "ARG_legitimize_the_PCA",
-            "cost": "5"
+            "cost": "5",
+            "mutually_exclusive": "None"
         },
         "ARG_viva_la_revolucion": {
             "id": "ARG_viva_la_revolucion",
@@ -533,22 +647,26 @@
                 "ARG_reach_out_to_the_soviet_union",
                 "ARG_unite_the_workers_of_argentina"
             ],
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         },
         "ARG_forge_our_own_future": {
             "id": "ARG_forge_our_own_future",
             "prerequisite": "ARG_forge_our_own_future",
+            "mutually_exclusive": "ARG_align_with_the_soviets",
             "cost": "10"
         },
         "ARG_support_the_farmers": {
             "id": "ARG_support_the_farmers",
             "prerequisite": "ARG_women_in_industry",
-            "cost": "5"
+            "cost": "5",
+            "mutually_exclusive": "None"
         },
         "ARG_socialist_volunteers": {
             "id": "ARG_socialist_volunteers",
             "prerequisite": "ARG_women_in_industry",
-            "cost": "5"
+            "cost": "5",
+            "mutually_exclusive": "None"
         },
         "ARG_the_buenos_aires_conference": {
             "id": "ARG_the_buenos_aires_conference",
@@ -556,27 +674,32 @@
                 "ARG_support_the_farmers",
                 "ARG_socialist_volunteers"
             ],
-            "cost": "5"
+            "cost": "5",
+            "mutually_exclusive": "None"
         },
         "ARG_align_with_the_soviets": {
             "id": "ARG_align_with_the_soviets",
             "prerequisite": "ARG_viva_la_revolucion",
+            "mutually_exclusive": "ARG_forge_our_own_future",
             "cost": "10"
         },
         "ARG_soviet_industrial_model": {
             "id": "ARG_soviet_industrial_model",
             "prerequisite": "ARG_align_with_the_soviets",
-            "cost": "5"
+            "cost": "5",
+            "mutually_exclusive": "None"
         },
         "ARG_committee_of_state_security": {
             "id": "ARG_committee_of_state_security",
             "prerequisite": "ARG_soviet_industrial_model",
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         },
         "ARG_russian_manufacturers": {
             "id": "ARG_russian_manufacturers",
             "prerequisite": "ARG_soviet_industrial_model",
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         },
         "ARG_centralize_power": {
             "id": "ARG_centralize_power",
@@ -584,7 +707,8 @@
                 "ARG_russian_manufacturers",
                 "ARG_committee_of_state_security"
             ],
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         },
         "ARG_workers_rights": {
             "id": "ARG_workers_rights",
@@ -592,26 +716,31 @@
                 "ARG_forge_our_own_future",
                 "ARG_align_with_the_soviets"
             ],
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         },
         "ARG_reform_our_industry": {
             "id": "ARG_reform_our_industry",
             "prerequisite": "ARG_workers_rights",
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         },
         "ARG_empower_the_fjc": {
             "id": "ARG_empower_the_fjc",
             "prerequisite": "ARG_reform_our_industry",
-            "cost": "5"
+            "cost": "5",
+            "mutually_exclusive": "None"
         },
         "ARG_state_atheism": {
             "id": "ARG_state_atheism",
             "prerequisite": "ARG_empower_the_fjc",
+            "mutually_exclusive": "ARG_liberation_theology",
             "cost": "5"
         },
         "ARG_liberation_theology": {
             "id": "ARG_liberation_theology",
             "prerequisite": "ARG_empower_the_fjc",
+            "mutually_exclusive": "ARG_state_atheism",
             "cost": "5"
         },
         "ARG_socialist_researchers": {
@@ -620,7 +749,8 @@
                 "ARG_state_atheism",
                 "ARG_liberation_theology"
             ],
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         },
         "ARG_conquer_south_america": {
             "id": "ARG_conquer_south_america",
@@ -628,16 +758,19 @@
                 "ARG_centralize_power",
                 "ARG_the_buenos_aires_conference"
             ],
+            "mutually_exclusive": "ARG_unify_south_america",
             "cost": "10"
         },
         "ARG_integrate_the_motherland": {
             "id": "ARG_integrate_the_motherland",
             "prerequisite": "ARG_conquer_south_america",
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         },
         "ARG_unify_south_america": {
             "id": "ARG_unify_south_america",
             "prerequisite": "ARG_the_buenos_aires_conference",
+            "mutually_exclusive": "ARG_conquer_south_america",
             "cost": "10"
         },
         "ARG_a_red_south_america": {
@@ -646,77 +779,92 @@
                 "ARG_unify_south_america",
                 "ARG_conquer_south_america"
             ],
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         },
         "ARG_improve_patagonia": {
             "id": "ARG_improve_patagonia",
             "prerequisite": "ARG_the_buenos_aires_conference",
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         },
         "ARG_establish_the_free_association": {
             "id": "ARG_establish_the_free_association",
             "prerequisite": "ARG_improve_patagonia",
-            "cost": "5"
+            "cost": "5",
+            "mutually_exclusive": "None"
         },
         "ARG_no_gods_no_masters": {
             "id": "ARG_no_gods_no_masters",
             "prerequisite": "ARG_establish_the_free_association",
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         },
         "ARG_banco_central_de_la_republica_argentina": {
             "id": "ARG_banco_central_de_la_republica_argentina",
             "prerequisite": "",
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         },
         "ARG_reach_out_to_the_great_powers": {
             "id": "ARG_reach_out_to_the_great_powers",
             "prerequisite": "ARG_banco_central_de_la_republica_argentina",
-            "cost": "5"
+            "cost": "5",
+            "mutually_exclusive": "None"
         },
         "ARG_industrial_expansion": {
             "id": "ARG_industrial_expansion",
             "prerequisite": "ARG_banco_central_de_la_republica_argentina",
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         },
         "ARG_production_initiative": {
             "id": "ARG_production_initiative",
             "prerequisite": "ARG_banco_central_de_la_republica_argentina",
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         },
         "ARG_economic_tax_reforms": {
             "id": "ARG_economic_tax_reforms",
             "prerequisite": "ARG_banco_central_de_la_republica_argentina",
-            "cost": "5"
+            "cost": "5",
+            "mutually_exclusive": "None"
         },
         "ARG_economic_reactivation_act": {
             "id": "ARG_economic_reactivation_act",
             "prerequisite": "ARG_banco_central_de_la_republica_argentina",
-            "cost": "5"
+            "cost": "5",
+            "mutually_exclusive": "None"
         },
         "ARG_immigration_wave": {
             "id": "ARG_immigration_wave",
             "prerequisite": "ARG_economic_reactivation_act",
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         },
         "ARG_develop_civilian_economy": {
             "id": "ARG_develop_civilian_economy",
             "prerequisite": "ARG_immigration_wave",
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         },
         "ARG_the_argentinian_metropole": {
             "id": "ARG_the_argentinian_metropole",
             "prerequisite": "ARG_develop_civilian_economy",
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         },
         "ARG_invest_in_the_roads": {
             "id": "ARG_invest_in_the_roads",
             "prerequisite": "ARG_economic_tax_reforms",
-            "cost": "5"
+            "cost": "5",
+            "mutually_exclusive": "None"
         },
         "ARG_invest_in_the_railways": {
             "id": "ARG_invest_in_the_railways",
             "prerequisite": "ARG_economic_tax_reforms",
-            "cost": "5"
+            "cost": "5",
+            "mutually_exclusive": "None"
         },
         "ARG_expand_steel_extraction": {
             "id": "ARG_expand_steel_extraction",
@@ -724,7 +872,8 @@
                 "ARG_invest_in_the_roads",
                 "ARG_invest_in_the_railways"
             ],
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         },
         "ARG_expand_aluminum_extraction": {
             "id": "ARG_expand_aluminum_extraction",
@@ -732,7 +881,8 @@
                 "ARG_invest_in_the_railways",
                 "ARG_invest_in_the_roads"
             ],
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         },
         "ARG_yacimientos_petroliferos_fiscales": {
             "id": "ARG_yacimientos_petroliferos_fiscales",
@@ -740,17 +890,20 @@
                 "ARG_expand_aluminum_extraction",
                 "ARG_expand_steel_extraction"
             ],
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         },
         "ARG_rapid_urbanization": {
             "id": "ARG_rapid_urbanization",
             "prerequisite": "ARG_industrial_expansion",
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         },
         "ARG_agricultural_improvements": {
             "id": "ARG_agricultural_improvements",
             "prerequisite": "ARG_industrial_expansion",
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         },
         "ARG_military_production_lines": {
             "id": "ARG_military_production_lines",
@@ -758,7 +911,8 @@
                 "ARG_rapid_urbanization",
                 "ARG_agricultural_improvements"
             ],
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         },
         "ARG_capitalize_the_beef_industry": {
             "id": "ARG_capitalize_the_beef_industry",
@@ -766,7 +920,8 @@
                 "ARG_agricultural_improvements",
                 "ARG_rapid_urbanization"
             ],
-            "cost": "5"
+            "cost": "5",
+            "mutually_exclusive": "None"
         },
         "ARG_revisit_the_roca_runciman_treaty": {
             "id": "ARG_revisit_the_roca_runciman_treaty",
@@ -774,7 +929,8 @@
                 "ARG_capitalize_the_beef_industry",
                 "ARG_military_production_lines"
             ],
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "ARG_a_new_trading_partner"
         },
         "ARG_a_new_trading_partner": {
             "id": "ARG_a_new_trading_partner",
@@ -782,44 +938,52 @@
                 "ARG_capitalize_the_beef_industry",
                 "ARG_military_production_lines"
             ],
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "ARG_revisit_the_roca_runciman_treaty"
         },
         "ARG_develop_the_electricity_sector": {
             "id": "ARG_develop_the_electricity_sector",
             "prerequisite": "ARG_production_initiative",
-            "cost": "5"
+            "cost": "5",
+            "mutually_exclusive": "None"
         },
         "ARG_invest_in_construction_guilds": {
             "id": "ARG_invest_in_construction_guilds",
             "prerequisite": "ARG_develop_the_electricity_sector",
-            "cost": "5"
+            "cost": "5",
+            "mutually_exclusive": "None"
         },
         "ARG_technical_schools": {
             "id": "ARG_technical_schools",
             "prerequisite": "ARG_invest_in_construction_guilds",
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         }
     },
     "AST": {
         "AST_additional_militia_training": {
             "id": "AST_additional_militia_training",
             "cost": "10",
-            "prerequisite": "None"
+            "prerequisite": "None",
+            "mutually_exclusive": "None"
         },
         "AST_royal_australian_artillery": {
             "id": "AST_royal_australian_artillery",
             "prerequisite": "AST_additional_militia_training",
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         },
         "AST_promote_reservists": {
             "id": "AST_promote_reservists",
             "prerequisite": "AST_additional_militia_training",
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         },
         "AST_daimler_dingo": {
             "id": "AST_daimler_dingo",
             "prerequisite": "AST_royal_australian_artillery",
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         },
         "AST_hmas_assault": {
             "id": "AST_hmas_assault",
@@ -827,37 +991,44 @@
                 "AST_royal_australian_artillery",
                 "AST_promote_reservists"
             ],
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         },
         "AST_specialize_equipment": {
             "id": "AST_specialize_equipment",
             "prerequisite": "AST_promote_reservists",
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         },
         "AST_australian_womens_army_service": {
             "id": "AST_australian_womens_army_service",
             "prerequisite": "AST_hmas_assault",
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         },
         "AST_australian_army_catering_corps": {
             "id": "AST_australian_army_catering_corps",
             "prerequisite": "AST_hmas_assault",
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         },
         "AST_fund_owen_gun_research": {
             "id": "AST_fund_owen_gun_research",
             "prerequisite": "AST_hmas_assault",
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         },
         "AST_sentinel_tank_project": {
             "id": "AST_sentinel_tank_project",
             "prerequisite": "AST_daimler_dingo",
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         },
         "AST_airborne_defence": {
             "id": "AST_airborne_defence",
             "prerequisite": "AST_volunteer_air_observers_corps",
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         },
         "AST_introduce_unconventional_warfare": {
             "id": "AST_introduce_unconventional_warfare",
@@ -865,42 +1036,50 @@
                 "AST_sentinel_tank_project",
                 "AST_airborne_defence"
             ],
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         },
         "AST_z_special_unit": {
             "id": "AST_z_special_unit",
             "prerequisite": "AST_introduce_unconventional_warfare",
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         },
         "AST_m_special_unit": {
             "id": "AST_m_special_unit",
             "prerequisite": "AST_introduce_unconventional_warfare",
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         },
         "AST_central_bureau": {
             "id": "AST_central_bureau",
             "prerequisite": "AST_introduce_unconventional_warfare",
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         },
         "AST_expand_the_raaf": {
             "id": "AST_expand_the_raaf",
             "cost": "10",
-            "prerequisite": "None"
+            "prerequisite": "None",
+            "mutually_exclusive": "None"
         },
         "AST_cac_boomerang": {
             "id": "AST_cac_boomerang",
             "prerequisite": "AST_expand_the_raaf",
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         },
         "AST_expand_northern_presence": {
             "id": "AST_expand_northern_presence",
             "prerequisite": "AST_expand_the_raaf",
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         },
         "AST_cac_woomera": {
             "id": "AST_cac_woomera",
             "prerequisite": "AST_expand_the_raaf",
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         },
         "AST_volunteer_air_observers_corps": {
             "id": "AST_volunteer_air_observers_corps",
@@ -908,13 +1087,485 @@
                 "AST_cac_boomerang",
                 "AST_expand_northern_presence"
             ],
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         },
         "AST_naval_bombers": {
             "id": "AST_naval_bombers",
             "prerequisite": "AST_cac_woomera",
-            "cost": "10"
+            "cost": "10",
+            "mutually_exclusive": "None"
         },
         "AST_death_from_down_under": {
             "id": "AST_death_from_down_under",
-            "prerequisite": 
+            "prerequisite": "AST_volunteer_air_observers_corps",
+            "cost": "10",
+            "mutually_exclusive": "None"
+        },
+        "AST_womens_auxilliary_australian_air_force": {
+            "id": "AST_womens_auxilliary_australian_air_force",
+            "prerequisite": [
+                "AST_volunteer_air_observers_corps",
+                "AST_naval_bombers"
+            ],
+            "cost": "10",
+            "mutually_exclusive": "None"
+        },
+        "AST_dominate_the_skies": {
+            "id": "AST_dominate_the_skies",
+            "prerequisite": "AST_womens_auxilliary_australian_air_force",
+            "cost": "10",
+            "mutually_exclusive": "None"
+        },
+        "AST_cockatoo_island_shipyards": {
+            "id": "AST_cockatoo_island_shipyards",
+            "cost": "5",
+            "prerequisite": "None",
+            "mutually_exclusive": "None"
+        },
+        "AST_kangaroo_point_shipyards": {
+            "id": "AST_kangaroo_point_shipyards",
+            "cost": "5",
+            "prerequisite": "None",
+            "mutually_exclusive": "None"
+        },
+        "AST_protect_overseas_commerce": {
+            "id": "AST_protect_overseas_commerce",
+            "prerequisite": [
+                "AST_cockatoo_island_shipyards",
+                "AST_kangaroo_point_shipyards"
+            ],
+            "mutually_exclusive": "AST_fly_the_jolly_roger",
+            "cost": "10"
+        },
+        "AST_fly_the_jolly_roger": {
+            "id": "AST_fly_the_jolly_roger",
+            "prerequisite": [
+                "AST_cockatoo_island_shipyards",
+                "AST_kangaroo_point_shipyards"
+            ],
+            "mutually_exclusive": "AST_protect_overseas_commerce",
+            "cost": "10"
+        },
+        "AST_scrap_iron_flotilla": {
+            "id": "AST_scrap_iron_flotilla",
+            "prerequisite": [
+                "AST_protect_overseas_commerce",
+                "AST_fly_the_jolly_roger"
+            ],
+            "cost": "10",
+            "mutually_exclusive": "None"
+        },
+        "AST_royal_australian_submarine_service": {
+            "id": "AST_royal_australian_submarine_service",
+            "prerequisite": [
+                "AST_protect_overseas_commerce",
+                "AST_fly_the_jolly_roger"
+            ],
+            "cost": "10",
+            "mutually_exclusive": "None"
+        },
+        "AST_naval_auxiliary_patrol": {
+            "id": "AST_naval_auxiliary_patrol",
+            "prerequisite": [
+                "AST_royal_australian_submarine_service",
+                "AST_scrap_iron_flotilla"
+            ],
+            "cost": "10",
+            "mutually_exclusive": "None"
+        },
+        "AST_cruisers": {
+            "id": "AST_cruisers",
+            "prerequisite": "AST_naval_auxiliary_patrol",
+            "cost": "10",
+            "mutually_exclusive": "None"
+        },
+        "AST_pacific_area_navy": {
+            "id": "AST_pacific_area_navy",
+            "prerequisite": "AST_naval_auxiliary_patrol",
+            "cost": "10",
+            "mutually_exclusive": "None"
+        },
+        "AST_standard_gauge_railway": {
+            "id": "AST_standard_gauge_railway",
+            "cost": "10",
+            "prerequisite": "None",
+            "mutually_exclusive": "None"
+        },
+        "AST_industries_assistance_corporation": {
+            "id": "AST_industries_assistance_corporation",
+            "cost": "10",
+            "prerequisite": "None",
+            "mutually_exclusive": "None"
+        },
+        "AST_western_australian_government_railways": {
+            "id": "AST_western_australian_government_railways",
+            "prerequisite": "AST_industries_assistance_corporation",
+            "cost": "10",
+            "mutually_exclusive": "None"
+        },
+        "AST_south_australian_housing_trust": {
+            "id": "AST_south_australian_housing_trust",
+            "prerequisite": "AST_western_australian_government_railways",
+            "cost": "10",
+            "mutually_exclusive": "None"
+        },
+        "AST_department_of_supply_and_development": {
+            "id": "AST_department_of_supply_and_development",
+            "prerequisite": "AST_western_australian_government_railways",
+            "cost": "10",
+            "mutually_exclusive": "None"
+        },
+        "AST_expand_lithgow_small_arms_factory": {
+            "id": "AST_expand_lithgow_small_arms_factory",
+            "prerequisite": "AST_south_australian_housing_trust",
+            "cost": "10",
+            "mutually_exclusive": "None"
+        },
+        "AST_allied_works_council": {
+            "id": "AST_allied_works_council",
+            "prerequisite": "AST_civil_construction_corps",
+            "cost": "10",
+            "mutually_exclusive": "None"
+        },
+        "AST_expand_the_northern_railway": {
+            "id": "AST_expand_the_northern_railway",
+            "prerequisite": "AST_expand_lithgow_small_arms_factory",
+            "cost": "10",
+            "mutually_exclusive": "None"
+        },
+        "AST_australian_arms_production": {
+            "id": "AST_australian_arms_production",
+            "prerequisite": "AST_allied_works_council",
+            "cost": "10",
+            "mutually_exclusive": "None"
+        },
+        "AST_uranium_mining": {
+            "id": "AST_uranium_mining",
+            "prerequisite": "AST_australian_arms_production",
+            "cost": "10",
+            "mutually_exclusive": "None"
+        },
+        "AST_establish_advisory_war_council": {
+            "id": "AST_establish_advisory_war_council",
+            "cost": "10",
+            "prerequisite": "None",
+            "mutually_exclusive": "None"
+        },
+        "AST_national_security_act": {
+            "id": "AST_national_security_act",
+            "prerequisite": "AST_establish_advisory_war_council",
+            "cost": "10",
+            "mutually_exclusive": "None"
+        },
+        "AST_volunteer_defence_corps": {
+            "id": "AST_volunteer_defence_corps",
+            "prerequisite": "AST_establish_advisory_war_council",
+            "cost": "10",
+            "mutually_exclusive": "None"
+        },
+        "AST_civil_construction_corps": {
+            "id": "AST_civil_construction_corps",
+            "prerequisite": "AST_national_security_act",
+            "cost": "10",
+            "mutually_exclusive": "None"
+        },
+        "AST_army_inventions_directorate": {
+            "id": "AST_army_inventions_directorate",
+            "prerequisite": "AST_national_security_act",
+            "cost": "10",
+            "mutually_exclusive": "None"
+        },
+        "AST_invest_in_victory": {
+            "id": "AST_invest_in_victory",
+            "prerequisite": "AST_national_security_act",
+            "cost": "10",
+            "mutually_exclusive": "None"
+        },
+        "AST_citizen_military_forces": {
+            "id": "AST_citizen_military_forces",
+            "prerequisite": "AST_volunteer_defence_corps",
+            "cost": "10",
+            "mutually_exclusive": "None"
+        },
+        "AST_rats_of_tobruk": {
+            "id": "AST_rats_of_tobruk",
+            "prerequisite": "AST_strengthen_ties_with_uk",
+            "cost": "10",
+            "mutually_exclusive": "None"
+        },
+        "AST_fight_work_or_perish": {
+            "id": "AST_fight_work_or_perish",
+            "prerequisite": "AST_squash_the_squanderbugs",
+            "cost": "10",
+            "mutually_exclusive": "None"
+        },
+        "AST_research_collaboration": {
+            "id": "AST_research_collaboration",
+            "prerequisite": "AST_australian_arms_production",
+            "cost": "10",
+            "mutually_exclusive": "None"
+        },
+        "AST_squash_the_squanderbugs": {
+            "id": "AST_squash_the_squanderbugs",
+            "prerequisite": "AST_invest_in_victory",
+            "cost": "10",
+            "mutually_exclusive": "None"
+        },
+        "AST_rationing_and_recycling": {
+            "id": "AST_rationing_and_recycling",
+            "prerequisite": "AST_invest_in_victory",
+            "cost": "10",
+            "mutually_exclusive": "None"
+        },
+        "AST_classify_aliens": {
+            "id": "AST_classify_aliens",
+            "prerequisite": "AST_citizen_military_forces",
+            "cost": "10",
+            "mutually_exclusive": "None"
+        },
+        "AST_fund_australian_defense_research": {
+            "id": "AST_fund_australian_defense_research",
+            "prerequisite": "AST_classify_aliens",
+            "cost": "10",
+            "mutually_exclusive": "None"
+        },
+        "AST_support_the_policy_of_appeasement": {
+            "id": "AST_support_the_policy_of_appeasement",
+            "mutually_exclusive": "AST_never_another_gallipoli",
+            "cost": "10",
+            "prerequisite": "None"
+        },
+        "AST_strengthen_ties_with_uk": {
+            "id": "AST_strengthen_ties_with_uk",
+            "prerequisite": "AST_support_the_policy_of_appeasement",
+            "cost": "10",
+            "mutually_exclusive": "None"
+        },
+        "AST_adopt_westminster": {
+            "id": "AST_adopt_westminster",
+            "prerequisite": [
+                "AST_strengthen_ties_with_uk",
+                "AST_the_singapore_strategy"
+            ],
+            "cost": "10",
+            "mutually_exclusive": "None"
+        },
+        "AST_CSIR": {
+            "id": "AST_CSIR",
+            "prerequisite": "AST_adopt_westminster",
+            "cost": "10",
+            "mutually_exclusive": "None"
+        },
+        "AST_swpa_protector": {
+            "id": "AST_swpa_protector",
+            "prerequisite": "AST_adopt_westminster",
+            "cost": "10",
+            "mutually_exclusive": "None"
+        },
+        "AST_empire_air_training_scheme": {
+            "id": "AST_empire_air_training_scheme",
+            "prerequisite": [
+                "AST_CSIR",
+                "AST_swpa_protector"
+            ],
+            "cost": "10",
+            "mutually_exclusive": "None"
+        },
+        "AST_commonwealth_aircraft_corporation": {
+            "id": "AST_commonwealth_aircraft_corporation",
+            "prerequisite": [
+                "AST_CSIR",
+                "AST_swpa_protector"
+            ],
+            "cost": "10",
+            "mutually_exclusive": "None"
+        },
+        "AST_never_another_gallipoli": {
+            "id": "AST_never_another_gallipoli",
+            "mutually_exclusive": "AST_support_the_policy_of_appeasement",
+            "cost": "10",
+            "prerequisite": "None"
+        },
+        "AST_protect_the_homeland": {
+            "id": "AST_protect_the_homeland",
+            "prerequisite": "AST_never_another_gallipoli",
+            "mutually_exclusive": "AST_abandon_the_westminster_system",
+            "cost": "10"
+        },
+        "AST_the_swpa_menace": {
+            "id": "AST_the_swpa_menace",
+            "prerequisite": "AST_protect_the_homeland",
+            "cost": "10",
+            "mutually_exclusive": "None"
+        },
+        "AST_sever_ties_with_uk": {
+            "id": "AST_sever_ties_with_uk",
+            "prerequisite": "AST_protect_the_homeland",
+            "cost": "10",
+            "mutually_exclusive": "None"
+        },
+        "AST_woo_usa": {
+            "id": "AST_woo_usa",
+            "prerequisite": "AST_sever_ties_with_uk",
+            "cost": "10",
+            "mutually_exclusive": "None"
+        },
+        "AST_protect_the_dutch_colonies": {
+            "id": "AST_protect_the_dutch_colonies",
+            "prerequisite": "AST_sever_ties_with_uk",
+            "cost": "10",
+            "mutually_exclusive": "None"
+        },
+        "AST_the_south_west_pacific_initiative": {
+            "id": "AST_the_south_west_pacific_initiative",
+            "prerequisite": [
+                "AST_woo_usa",
+                "AST_protect_the_dutch_colonies"
+            ],
+            "cost": "10",
+            "mutually_exclusive": "None"
+        },
+        "AST_research_cooperation": {
+            "id": "AST_research_cooperation",
+            "prerequisite": "AST_the_south_west_pacific_initiative",
+            "cost": "10",
+            "mutually_exclusive": "None"
+        },
+        "AST_preemptive_intervention": {
+            "id": "AST_preemptive_intervention",
+            "prerequisite": "AST_research_cooperation",
+            "cost": "10",
+            "mutually_exclusive": "None"
+        },
+        "AST_abandon_the_westminster_system": {
+            "id": "AST_abandon_the_westminster_system",
+            "prerequisite": "AST_never_another_gallipoli",
+            "mutually_exclusive": "AST_protect_the_homeland",
+            "cost": "10"
+        },
+        "AST_support_the_centre_party": {
+            "id": "AST_support_the_centre_party",
+            "prerequisite": "AST_abandon_the_westminster_system",
+            "mutually_exclusive": "AST_empower_the_workers",
+            "cost": "10"
+        },
+        "AST_supply_indonesian_nationalists": {
+            "id": "AST_supply_indonesian_nationalists",
+            "prerequisite": "AST_support_the_centre_party",
+            "cost": "10",
+            "mutually_exclusive": "None"
+        },
+        "AST_support_indonesian_uprising": {
+            "id": "AST_support_indonesian_uprising",
+            "prerequisite": "AST_supply_indonesian_nationalists",
+            "cost": "10",
+            "mutually_exclusive": "None"
+        },
+        "AST_demand_new_zealand": {
+            "id": "AST_demand_new_zealand",
+            "prerequisite": [
+                "AST_support_the_centre_party",
+                "AST_empower_the_workers"
+            ],
+            "cost": "10",
+            "mutually_exclusive": "None"
+        },
+        "AST_protect_the_south_west_pacific": {
+            "id": "AST_protect_the_south_west_pacific",
+            "prerequisite": "AST_support_indonesian_uprising",
+            "cost": "10",
+            "mutually_exclusive": "None"
+        },
+        "AST_a_deal_with_japan": {
+            "id": "AST_a_deal_with_japan",
+            "prerequisite": "AST_protect_the_south_west_pacific",
+            "mutually_exclusive": "AST_our_own_empire",
+            "cost": "10"
+        },
+        "AST_our_own_empire": {
+            "id": "AST_our_own_empire",
+            "prerequisite": "AST_demand_new_zealand",
+            "mutually_exclusive": "AST_a_deal_with_japan",
+            "cost": "10"
+        },
+        "AST_japan_tech_sharing": {
+            "id": "AST_japan_tech_sharing",
+            "prerequisite": "AST_a_deal_with_japan",
+            "cost": "10",
+            "mutually_exclusive": "None"
+        },
+        "AST_war_on_japan": {
+            "id": "AST_war_on_japan",
+            "prerequisite": "AST_our_own_empire",
+            "cost": "10",
+            "mutually_exclusive": "None"
+        },
+        "AST_empower_the_workers": {
+            "id": "AST_empower_the_workers",
+            "prerequisite": "AST_abandon_the_westminster_system",
+            "mutually_exclusive": "AST_support_the_centre_party",
+            "cost": "10"
+        },
+        "AST_delegation_to_china": {
+            "id": "AST_delegation_to_china",
+            "prerequisite": "AST_empower_the_workers",
+            "cost": "10",
+            "mutually_exclusive": "None"
+        },
+        "AST_commitment_to_the_cause": {
+            "id": "AST_commitment_to_the_cause",
+            "prerequisite": "AST_delegation_to_china",
+            "cost": "10",
+            "mutually_exclusive": "None"
+        },
+        "AST_indirect_support": {
+            "id": "AST_indirect_support",
+            "prerequisite": "AST_commitment_to_the_cause",
+            "mutually_exclusive": "AST_direct_support",
+            "cost": "10"
+        },
+        "AST_direct_support": {
+            "id": "AST_direct_support",
+            "prerequisite": "AST_commitment_to_the_cause",
+            "mutually_exclusive": "AST_indirect_support",
+            "cost": "10"
+        },
+        "AST_join_comintern": {
+            "id": "AST_join_comintern",
+            "prerequisite": [
+                "AST_indirect_support",
+                "AST_direct_support"
+            ],
+            "mutually_exclusive": "AST_workers_paradise",
+            "cost": "10"
+        },
+        "AST_workers_paradise": {
+            "id": "AST_workers_paradise",
+            "prerequisite": "AST_direct_support",
+            "mutually_exclusive": "AST_join_comintern",
+            "cost": "10"
+        },
+        "AST_research_city_excursions": {
+            "id": "AST_research_city_excursions",
+            "prerequisite": "AST_join_comintern",
+            "cost": "10",
+            "mutually_exclusive": "None"
+        },
+        "AST_nz_puppet": {
+            "id": "AST_nz_puppet",
+            "prerequisite": [
+                "AST_workers_paradise",
+                "AST_join_comintern"
+            ],
+            "cost": "10",
+            "mutually_exclusive": "None"
+        },
+        "AST_the_threat_against_the_people": {
+            "id": "AST_the_threat_against_the_people",
+            "prerequisite": "AST_workers_paradise",
+            "cost": "10",
+            "mutually_exclusive": "None"
+        }
+    }
+}

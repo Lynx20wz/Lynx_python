@@ -5,10 +5,10 @@ from pathlib import Path
 
 from tkinter import filedialog
 from loguru import logger
-from find_part_focus_in_file import find_part_focus, country
 from prettytable import PrettyTable
 from rich import print
 
+from find_part_focus_in_file import find_part_focus, country
 from get_name_with_help_id import get_name_with_help_id
 
 logger.remove()
@@ -27,9 +27,9 @@ def open_folder_with_focus() -> str:
         print('Откройте папку с файлами фокусов:')
         # TODO исправить выбор папки
         file_folder = filedialog.askdirectory(
-            title='Открыть папку с фокусами',
-            initialdir='C:/Program Files (x86)/steam/steamapps/common/Hearts of Iron IV'
-            )
+                title='Открыть папку с фокусами',
+                initialdir='C:/Program Files (x86)/steam/steamapps/common/Hearts of Iron IV'
+        )
         if file_folder == '':
             print(f"Папка не выбрана!")
             while True:
@@ -66,6 +66,7 @@ else:
         for files in os.listdir(file_folder):
             find_part_focus(f'{file_folder}/{files}')
             logger.info(f'Вызвана функция find_part_focus {file_folder}/{files}')
+            country_table = PrettyTable(field_names=['Country', 'Number of focus'])
         for key_c, value_c in country.items():
             name_country = get_name_with_help_id(key_c)
             table = PrettyTable(field_names=['ID', 'cost', 'prerequisite'], title=f'focuses {name_country}')
@@ -73,8 +74,10 @@ else:
                 table.add_row(
                         [value_f.get('id'), value_f.get('cost'), ', '.join(value_f.get('prerequisite'))
                         if isinstance(value_f.get('prerequisite'), list) else value_f.get('prerequisite')]
-                        )
+                )
             print(table)
+            country_table.add_row([name_country, len(key_f)])
+            print(country_table)
 
         with open('focus_json.json', 'w') as json_file:
             json_record = country

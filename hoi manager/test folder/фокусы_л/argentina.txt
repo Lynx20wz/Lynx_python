@@ -2865,7 +2865,7 @@ focus_tree = {
 				popularity = -0.05
 			}
 
-			#possible TODO, add advisors? Unsure which Advisors were to be added here so feel free to make changes here Eilidh!
+			#possible
 		}
 	}
 

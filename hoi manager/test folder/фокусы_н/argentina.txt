@@ -2649,7 +2649,11 @@ focus_tree = {
 		y = 0
 		#relative_position_id = ARG_preparation_for_the_elections
 		cost = 10
-		mutually_exclusive = { focus = ARG_a_call_to_reform focus = ARG_roberto_maria_ortiz }
+		mutually_exclusive = {
+		    focus = ARG_a_call_to_reform
+		    focus = ARG_roberto_maria_ortiz
+		    focus = ARG_com
+	    }
 		available = {
 		}
 
@@ -2865,7 +2869,7 @@ focus_tree = {
 				popularity = -0.05
 			}
 
-			#possible TODO, add advisors? Unsure which Advisors were to be added here so feel free to make changes here Eilidh!
+			#possible
 		}
 	}
 

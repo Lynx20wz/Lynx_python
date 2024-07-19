@@ -13,6 +13,26 @@ logger.add(
 )
 
 
+def block_code(name_part: str, file, focus_dict: dict):
+    for line in file.readlines():
+        if line.startswith('}'):
+            break
+        else:
+            part = line[len(f'{name_part} = '):]
+            if focus_dict.get(name_part) != None:
+                if isinstance(focus_dict.get(name_part), list):
+                    part1 = focus_dict.get(name_part)
+                    all_part = part1.append(part)
+                else:
+                    part1 = focus_dict.get(name_part)
+                    all_part = [name_part, part1]
+                    focus_dict[name_part] = all_part
+                logger.info(f'{all_part}')
+            else:
+                focus_dict[name_part] = part
+                logger.info(part)
+
+
 def find_part_focus(file: str) -> dict:
     name_country = file[file.rfind('/') + 1:file.find('.')]
     tag = get_name_with_help_id(name_country)
@@ -44,6 +64,8 @@ def find_part_focus(file: str) -> dict:
                         if focus_count == 1:
                             prerequisite = line[len('prerequisite = { focus = '):line.rfind('}') - 1]
                             focus_dict['prerequisite'] = prerequisite
+                        elif focus_count == 0:
+                            block_code('prerequisite', focus_file, focus_dict)
                         else:
                             prerequisite = line[len('prerequisite = { focus = '):line.rfind('}') - 1].split(
                                     ' focus = '
@@ -51,39 +73,21 @@ def find_part_focus(file: str) -> dict:
                             focus_dict['prerequisite'] = prerequisite
                             prerequisite = ', '.join(i.strip() for i in prerequisite)
 
-                    if line.startswith('mutually_exclusive =') or mutually_exclusive_block != False:
+                    if line.startswith('mutually_exclusive ='):
                         focus_count = line.count('focus =')
-                        if mutually_exclusive_block is False:
-                            if focus_count == 1:
-                                mutually_exclusive = line[len('mutually_exclusive = { focus = '):line.rfind('}') - 1]
-                                focus_dict['mutually_exclusive'] = mutually_exclusive
-                            elif focus_count == 0:
-                                mutually_exclusive_block = number_of_spaces
-                            else:
-                                mutually_exclusive = line[
-                                                     len('mutually_exclusive = { focus = '):line.rfind('}') - 1].split(
-                                        ' focus = '
-                                )
-                                focus_dict['mutually_exclusive'] = mutually_exclusive
-                                logger.info(f'Простой случай: {mutually_exclusive}')
-                                mutually_exclusive = ', '.join(i.strip() for i in mutually_exclusive)
+                        if focus_count == 1:
+                            mutually_exclusive = line[len('mutually_exclusive = { focus = '):line.rfind('}') - 1]
+                            focus_dict['mutually_exclusive'] = mutually_exclusive
+                        elif focus_count == 0:
+                            block_code('mutually_exclusive', focus_file, focus_dict)
                         else:
-                            if line.startswith('}'):
-                                mutually_exclusive_block = False
-                            else:
-                                mutually_exclusive = line[len('focus = '):]
-                                if focus_dict.get('mutually_exclusive') != None:
-                                    if isinstance(focus_dict.get('mutually_exclusive'), list):
-                                        mutually_exclusive1 = focus_dict.get('mutually_exclusive')
-                                        all_mutually_exclusive = mutually_exclusive1.append(mutually_exclusive)
-                                    else:
-                                        mutually_exclusive1 = focus_dict.get('mutually_exclusive')
-                                        all_mutually_exclusive = [mutually_exclusive, mutually_exclusive1]
-                                        focus_dict['mutually_exclusive'] = all_mutually_exclusive
-                                    logger.info(f'{all_mutually_exclusive}')
-                                else:
-                                    focus_dict['mutually_exclusive'] = mutually_exclusive
-                                    logger.info(mutually_exclusive)
+                            mutually_exclusive = line[
+                                                 len('mutually_exclusive = { focus = '):line.rfind('}') - 1].split(
+                                    ' focus = '
+                            )
+                            focus_dict['mutually_exclusive'] = mutually_exclusive
+                            logger.info(f'Простой случай: {mutually_exclusive}')
+                            mutually_exclusive = ', '.join(i.strip() for i in mutually_exclusive)
 
                     if line.startswith('cost ='):
                         if focus_dict.get('cost') is None:

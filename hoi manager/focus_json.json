@@ -329,11 +329,7 @@
             "id": "ARG_the_clean_election",
             "prerequisite": "ARG_preparation_for_the_elections",
             "cost": "10",
-            "mutually_exclusive": [
-                "ARG_roberto_maria_ortiz",
-                "ARG_a_call_to_reform",
-                "ARG_com"
-            ]
+            "mutually_exclusive": "None"
         },
         "ARG_in_memory_of_yrigoyen": {
             "id": "ARG_in_memory_of_yrigoyen",
@@ -930,7 +926,7 @@
                 "ARG_military_production_lines"
             ],
             "cost": "10",
-            "mutually_exclusive": "ARG_a_new_trading_partner"
+            "mutually_exclusive": "None"
         },
         "ARG_a_new_trading_partner": {
             "id": "ARG_a_new_trading_partner",
@@ -939,7 +935,7 @@
                 "ARG_military_production_lines"
             ],
             "cost": "10",
-            "mutually_exclusive": "ARG_revisit_the_roca_runciman_treaty"
+            "mutually_exclusive": "None"
         },
         "ARG_develop_the_electricity_sector": {
             "id": "ARG_develop_the_electricity_sector",

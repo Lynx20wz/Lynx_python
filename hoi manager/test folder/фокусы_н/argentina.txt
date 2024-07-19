@@ -2654,6 +2654,7 @@ focus_tree = {
 		    focus = ARG_roberto_maria_ortiz
 		    focus = ARG_com
 	    }
+
 		available = {
 		}
 
@@ -2665,8 +2666,10 @@ focus_tree = {
 						option = HIDE
 					}
 				}
-				NOT = { has_completed_focus = ARG_roberto_maria_ortiz }
-				NOT = { has_completed_focus = ARG_a_call_to_reform }
+				NOT = {
+				    has_completed_focus = ARG_a_call_to_reform
+				    has_completed_focus = ARG_roberto_maria_ortiz
+				}
 			}
 		}
 

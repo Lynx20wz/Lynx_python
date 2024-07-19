@@ -5,8 +5,10 @@ import sys
 from PIL import Image
 from tkinter import filedialog
 
-ico_uptade = customtkinter.CTkImage(light_image=Image.open('перезагрузка.png'),
-                                    dark_image=Image.open('перезагрузка.png'), size=(30, 30))
+# ico_uptade = customtkinter.CTkImage(
+#     light_image=Image.open('перезагрузка.png'),
+#     dark_image=Image.open('перезагрузка.png'), size=(30, 30)
+#     )
 
 focus_name_massiv = []
 focus_dictionary = {}
@@ -30,22 +32,22 @@ class country_class:
 
 
 class focus_class:
-    #инициализация
+    # инициализация
     def __init__(self, id, cost, prerequisite=None, mutually_exclusive=None, create_focus=None):
         self.id = id
-        self.costм = cost
+        self.cost = cost
         self.prerequisite = prerequisite
         self.mutually_exclusive = mutually_exclusive
         focus_name_massiv.append(self.id)
-        focus_dictionary[id] = {'self': self, 'id': self.id, 'cost': self.costм, 'prerequisite': self.prerequisite,
+        focus_dictionary[id] = {'self': self, 'id': self.id, 'cost': self.cost, 'prerequisite': self.prerequisite,
                                 'mutually_exclusive': self.mutually_exclusive}
         if create_focus == 1:
             self.focus_to_file(id, cost, prerequisite, mutually_exclusive)
         else:
-            ...  #ничего не происходит
+            ...  # ничего не происходит
 
     def info(self):
-        output = f'\nФокус: "{self.id}" | {self.costм}\n'
+        output = f'\nФокус: "{self.id}" | {self.cost}\n'
         if self.prerequisite:
             output += f'prerequisite: {self.pre}\n'
         if self.mutually_exclusive:
@@ -58,7 +60,7 @@ class focus_class:
         return output
 
     @staticmethod
-    def clear_focus_file():  #очитска всего файла
+    def clear_focus_file():  # очитска всего файла
         with open("focus.txt", "w") as file:
             file.write('')
         focus_name_massiv.clear()
@@ -89,7 +91,7 @@ class focus_class:
 
     def focus_to_file(self, id, cost, prerequisite=None, mutually_exclusive=None):
         with open("focus.txt", 'a') as focus_file:
-            focus_entry = f"focus = {{\n    id = {self.id}\n    cost = {self.costм}\n"
+            focus_entry = f"focus = {{\n    id = {self.id}\n    cost = {self.cost}\n"
             focus_entry += f'}}\n\n'
             focus_file.write(focus_entry)
 
@@ -101,9 +103,9 @@ class App_class(customtkinter.CTk):
         self.resizable(False, False)
         self.bg_image = customtkinter.CTkImage(Image.open("bg.jpg"), size=(800, 600))
         self.bg_image_label = customtkinter.CTkLabel(self, image=self.bg_image)
-        self.bg_image_label.grid(row=0,column=0)
-        #self.iconbitmap()
-        #self.attributes('-topmost', True) #закрепить наверху
+        self.bg_image_label.grid(row=0, column=0)
+        # self.iconbitmap()
+        # self.attributes('-topmost', True) #закрепить наверху
         self.title("Modding manager")
 
         tab = customtkinter.CTkTabview(self, width=800, height=570, corner_radius=15, anchor='nw')
@@ -116,73 +118,43 @@ class App_class(customtkinter.CTk):
         # кнопки
 
         # кнопка открыть файл
-        self.btnopenfocusfile = customtkinter.CTkButton(tab.tab('focus'), height=33, width=120, fg_color='#010046',
-                                                        text='открыть', command=self.open_file, corner_radius=10)
+        self.btnopenfocusfile = customtkinter.CTkButton(
+                tab.tab('focus'), height=33, width=120, fg_color='#010046',
+                text='открыть', command=self.open_file, corner_radius=10
+        )
         self.btnopenfocusfile.grid(padx=5, pady=(15, 0))
 
         # кнопка сохранить
-        self.btnsavefocusfile = customtkinter.CTkButton(tab.tab('focus'), height=33, width=120, fg_color='#010046',text='сохранить', command=self.save_file, corner_radius=10)
+        self.btnsavefocusfile = customtkinter.CTkButton(
+                tab.tab('focus'), height=33, width=120, fg_color='#010046', text='сохранить', command=self.save_file,
+                corner_radius=10
+        )
         self.btnsavefocusfile.grid(padx=5, pady=5)
 
         # кнопка обнвления
         self.updatebtn = customtkinter.CTkButton(master=tab.tab('focus'), command=self.uptadewidget(), image=ico_uptade)
         self.updatebtn.grid(padx=20, pady=30)
 
-
     def uptadewidget(self):
         app.update()
 
     def open_file(self):
-        initial_file = filedialog.askopenfilename(title="Выберете файл содержащий фокусы",
-                                                  filetypes=[("Файл с фокусами", ".txt*")])
-        if initial_file != "":
-            try:
-                with open(initial_file, 'r') as focus_file:
-                    for line in focus_file:
-                        if not line.startswith("focus_tree = {"):
-                            break
-                        else:
-                            if "focus = {" in line:
-                                focus_block = True
-                                while focus_block:
-                                    for line in focus_file:
-                                        if "id = " in line:
-                                            find_id = line[line.find("id = ") + len("id = "):].strip()
-                                        if "cost = " in line:
-                                            find_cost = line[line.find("cost = ") + len("cost = "):].strip()
-                                        if "prerequisite =" in line:
-                                            find_prerequisite = line[line.find("prerequisite = ") + len(
-                                                "prerequisite = "):].strip()
-                                        else:
-                                            find_prerequisite = None
-                                        if "mutually_exclusive =" in line:
-                                            find_mutually_exclusive = line[line.find("mutually_exclusive = ") + len(
-                                                "mutually_exclusive = "):].strip()
-                                        else:
-                                            find_mutually_exclusive = None
-                                        if "}" in line:
-                                            focus_block = False
-                                            find_id = focus_class(find_id, find_cost, find_prerequisite,
-                                                                  find_mutually_exclusive)
-            except FileNotFoundError:
-                print("Файл с фокусами не был найден!")
+        if len(focus_name_massiv) > 0:
+            print(f"Всего было найдено фокусов {len(focus_name_massiv)}:")
+            # print(', '.join(focus_name_massiv))
+            print(focus_class.all_focus())
 
-            if len(focus_name_massiv) > 0:
-                print(f"Всего было найдено фокусов {len(focus_name_massiv)}:")
-                #print(', '.join(focus_name_massiv))
-                print(focus_class.all_focus())
-
-            else:
-                print("Фокусы в файле не найдены!")
-                focus_tree_quest = input("Создать новую ветку фокусов?: ")
-                if focus_tree_quest == 'yes' or focus_tree_quest == 'да':
-                    focus_tree_tag_quest = input("На какую страну делаем ветку фокусов?: ").lower()
-                    if focus_tree_tag_quest.upper() in tag_coutries:
-                        create_focus_tree(focus_tree_tag_quest)
-                    else:
-                        create_focus_tree(get_key(focus_tree_tag_quest))
+        else:
+            print("Фокусы в файле не найдены!")
+            focus_tree_quest = input("Создать новую ветку фокусов?: ")
+            if focus_tree_quest == 'yes' or focus_tree_quest == 'да':
+                focus_tree_tag_quest = input("На какую страну делаем ветку фокусов?: ").lower()
+                if focus_tree_tag_quest.upper() in tag_coutries:
+                    create_focus_tree(focus_tree_tag_quest)
                 else:
-                    ...
+                    create_focus_tree(get_key(focus_tree_tag_quest))
+            else:
+                ...
 
     def save_file(self):
         pass
@@ -201,23 +173,6 @@ def create_focus_tree(id):
         }} 
     }}'''
         focus_file.write(focus_tree)
-
-
-def get_key(significance):
-    for k, s in tag_coutries.items():
-        for s in s:
-            if s == significance:
-                return k
-    else:
-        unkown_tag_quest = input('Такого названия не найдено! Хотите создать новую страну?: ')
-        if unkown_tag_quest == 'yes' or unkown_tag_quest == 'да':
-            tag = input('Введите трёх-символьный тэг страны (например: "GER"): ').upper()
-            if len(tag) == 3 and re.match(r'^[A-Z]+$', tag):
-                name = input("Введите название страны на вашем языке: ").lower()
-                ideologies_quest = input("Введите идеологию страны (фашизм, комунизм, нейтралитет, демократия, своя): ")
-                #if ideologies_quest == 
-                #    ideologies = input
-        return 'MOD'
 
 
 app = App_class()

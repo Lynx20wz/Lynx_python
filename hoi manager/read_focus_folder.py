@@ -13,7 +13,7 @@ from get_name_with_help_id import get_name_with_help_id
 
 logger.remove()
 logger.add(
-        sink='logs/read_focus.log',
+        sink='logs/read_focus.log',  # для консоли sys.stdout с библиотекой sys
         level='INFO',
         mode='w',
         format='{time:H:mm:ss} | <level>{level}</level> | {line}: {message}',

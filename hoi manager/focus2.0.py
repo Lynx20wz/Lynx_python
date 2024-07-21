@@ -1,6 +1,7 @@
 import re
 import sys
 import read_focus_folder
+
 focus_name_massive = []
 focus_dictionary = {}
 tag_countries = {
@@ -279,10 +280,9 @@ tag_countries = {
 }
 ideologies_massive = ['фашизм', 'коммунизм', 'демократия', 'нейтралитет']
 
-# write def for plus a and b
 
 class country_class:
-    def __init__(self, tag, name, ideologies, capital = None, leader = None, create_country = None):
+    def __init__(self, tag, name, ideologies, capital=None, leader=None, create_country=None):
         self.tag = tag
         self.name = name
         self.capital = capital
@@ -292,23 +292,25 @@ class country_class:
         if create_country == True:
             create_country(tag, name, ideologies, capital, leader)
 
-    def create_country(self, tag, name, ideologies, capital = None, leader = None):
+    def create_country(self, tag, name, ideologies, capital=None, leader=None):
         with open(f"{name}.txt"):
             write_to_file = f'''capital = {capital}'''
 
+
 class focus_class:
-    #инициализация
+    # инициализация
     def __init__(self, id, cost, prerequisite=None, mutually_exclusive=None, create_focus=None):
         self.id = id
         self.cost = cost
         self.prerequisite = prerequisite
         self.mutually_exclusive = mutually_exclusive
         focus_name_massive.append(self.id)
-        focus_dictionary[id] = {'self': self, 'id': self.id, 'cost': self.cost, 'prerequisite': self.prerequisite, 'mutually_exclusive': self.mutually_exclusive}
+        focus_dictionary[id] = {'self': self, 'id': self.id, 'cost': self.cost, 'prerequisite': self.prerequisite,
+                                'mutually_exclusive': self.mutually_exclusive}
         if create_focus == 1:
             self.focus_to_file(id, cost, prerequisite, mutually_exclusive)
         else:
-            ... #ничего не происходит
+            ...  # ничего не происходит
 
     def info(self):
         output = f'\nФокус: "{self.id}" | {self.cost}\n'
@@ -317,7 +319,7 @@ class focus_class:
         if self.mutually_exclusive:
             output += f'mutually_exclusive: {self.muex}\n'
         return output
-    
+
     @staticmethod
     def all_focus():
         output = ', '.join(focus_name_massive)
@@ -336,9 +338,8 @@ class focus_class:
             if search_focus == id:
                 search_focus = focus_dictionary[search_focus]['self']
                 return search_focus
-    
-    
-    #блок изменений частей
+
+    # блок изменений частей
     def set_id(self, id):
         self.id = id
 
@@ -360,6 +361,7 @@ class focus_class:
             focus_entry += f'}}\n\n'
             focus_file.write(focus_entry)
 
+
 def create_focus_tree(id):
     id = id.upper()
     with open("focus.txt", 'w') as focus_file:
@@ -374,6 +376,7 @@ def create_focus_tree(id):
     }}'''
         focus_file.write(focus_tree)
 
+
 def get_key(significance):
     for k, s in tag_countries.items():
         for s in s:
@@ -381,21 +384,25 @@ def get_key(significance):
                 return k
     else:
         unknown_tag_quest = input(
-            'Такого названия не найдено! Хотите создать новую страну?: ')
+                'Такого названия не найдено! Хотите создать новую страну?: '
+        )
         if unknown_tag_quest == 'yes' or unknown_tag_quest == 'да':
             tag = input('Введите трёх-символьный тэг страны (например: "GER"): ').upper()
             if len(tag) == 3 and re.match(r'^[A-Z]+$', tag):
                 name = input("Введите название страны на вашем языке: ").lower()
                 ideologies_quest = input(
-                    "Введите идеологию страны (фашизм, коммунизм, нейтралитет, демократия, своя): ")
+                        "Введите идеологию страны (фашизм, коммунизм, нейтралитет, демократия, своя): "
+                )
                 if ideologies_quest in ideologies_massive:
                     pass
         return 'MOD'
 
 
-print("Здравствуйте, это программа создана для моддинга в Heart of Iron4. В данный момент вам доступны следующие команды: \nНастройки, фокусы, выход")
+print(
+    "Здравствуйте, это программа создана для моддинга в Heart of Iron4. В данный момент вам доступны следующие команды: \nНастройки, фокусы, выход"
+    )
 
-#считывание созданных фокусов в файле
+# считывание созданных фокусов в файле
 try:
     with open("focus.txt", 'r') as focus_file:
         for line in focus_file:
@@ -412,11 +419,13 @@ try:
                                 find_cost = line[line.find("cost = ") + len("cost = "):].strip()
                             if "prerequisite =" in line:
                                 find_prerequisite = line[line.find("prerequisite = ") + len("prerequisite = "):].strip()
-                            else: 
+                            else:
                                 find_prerequisite = None
                             if "mutually_exclusive =" in line:
-                                find_mutually_exclusive = line[line.find("mutually_exclusive = ") + len("mutually_exclusive = "):].strip()
-                            else: 
+                                find_mutually_exclusive = line[line.find("mutually_exclusive = ") + len(
+                                    "mutually_exclusive = "
+                                    ):].strip()
+                            else:
                                 find_mutually_exclusive = None
                             if "}" in line:
                                 focus_block = False
@@ -467,7 +476,7 @@ while True:
                         focus_class.clear_focus_file()
                     else:
                         ...
-                        
+
                 else:
                     while True:
                         cost = input("Сколько недель будет проходиться фокус? ")
@@ -475,7 +484,9 @@ while True:
                             break
                         elif re.match(r'[1-9]', cost):
                             id_focus_class = (focus_class(id, cost, create_focus=1))
-                            print(f'Фокус {id} был создан!:\n{id_focus_class.info()}\nВсего фокусов {len(focus_dictionary)}: {focus_class.all_focus()}')
+                            print(
+                                f'Фокус {id} был создан!:\n{id_focus_class.info()}\nВсего фокусов {len(focus_dictionary)}: {focus_class.all_focus()}'
+                                )
                             break
                         else:
                             print('Cost должен быть цифрой')

@@ -1,6 +1,7 @@
 import json
 import os
 import sys
+import time
 from pathlib import Path
 
 from tkinter import filedialog
@@ -49,6 +50,7 @@ file_folder = open_folder_with_focus()
 print("Выбранный путь к файлу: ", file_folder.replace(' ', '_'))
 
 for files in os.listdir(file_folder):
+    start_time = time.time()
     if Path(files).suffix == '.txt':
         logger.info(f'Файлы: {files}')
         focus_files.append(files)
@@ -64,8 +66,8 @@ else:
     print('')
     if question == 'да' or question == 'yes':
         for files in os.listdir(file_folder):
-            find_part_focus(f'{file_folder}/{files}')
-            logger.info(f'Вызвана функция find_part_focus {file_folder}/{files}')
+            find_part_focus(f'{file_folder}/{files}')  # вызов функции поиска фокусов
+            logger.info(f'Вызвана функция find_part_focus {file_folder}/{files}.\n')
             country_table = PrettyTable(field_names=['Country', 'Number of focus'])
         for key_c, value_c in country.items():
             name_country = get_name_with_help_id(key_c)
@@ -76,13 +78,14 @@ else:
                         if isinstance(value_f.get('prerequisite'), list) else value_f.get('prerequisite')]
                 )
             print(table)
-            country_table.add_row([name_country, len(key_f)])
+            country_table.add_row([name_country.capitalize(), len(value_c)])
             print(country_table)
 
         with open('focus_json.json', 'w') as json_file:
             json_record = country
             logger.info(f'Запись в json {json_record}')
             json.dump(json_record, json_file, indent=4)
-            input()
+            end_time = time.time()
+            logger.info(f'Время выполнения: {end_time - start_time}')
     else:
         open_folder_with_focus()

@@ -13,8 +13,8 @@ logger.remove()
 ask_file_output = ''
 
 
-def work(mode, zero, space, file=''):
-    if mode == '1':
+def work(mode: int, zero: bool, space: bool, file: str = ''):
+    if mode == 1:
         print('Откройте файл для локализации')
         # file = filedialog.askopenfilename(title='Выберете файл для локализации', filetypes=[('Файл hoi4', '*.txt')])
         file = "F:/Lynx_python/hoi manager/test folder/test_json/usa.txt"  # TODO убрать
@@ -56,41 +56,42 @@ def work(mode, zero, space, file=''):
                     file_output.write(text_output)
 
 
-while True:
+if __name__ == '__main__':
     while True:
-        working_mode = input("Выберите пожалуйста вариант работы [1/2]: ")
-        if working_mode in ('1', '2'):
-            break
-        else:
-            print("[red]Некорректный ввод![/red] Повторите попытку.\n")
-    while True:
+        while True:
+            working_mode = int(input("Выберите пожалуйста вариант работы [1/2]: "))
+            if working_mode in ('1', '2'):
+                break
+            else:
+                print("[red]Некорректный ввод![/red] Повторите попытку.\n")
+        while True:
+            print()
+            need_zero = input(
+                    "Нужно ли вставлять '0' в локализацию? Примеры: \n"
+                    "Focus_example:0 \"Focus example\" \nИЛИ \nFocus_example: \"Focus example\" \n[д/н]: "
+            )
+            if need_zero in ('д', 'н'):
+                break
+            else:
+                print("[red]Некорректный ввод![/red] Повторите попытку.\n")
+        while True:
+            print()
+            need_space = input(
+                    "Нужны ли пробелы в локализации? Примеры:\nl_english:\nUsa_focus: \"Usa focus\" \nИЛИ \nl_english:\n Usa_focus: \"Usa focus\" \n[д/н]: "
+            )
+            if need_space in ('д', 'н'):
+                break
+            else:
+                print("[red]Некорректный ввод![/red] Повторите попытку.\n")
+        work(working_mode, need_zero, need_space)
         print()
-        need_zero = input(
-                "Нужно ли вставлять '0' в локализацию? Примеры: \n"
-                "Focus_example:0 \"Focus example\" \nИЛИ \nFocus_example: \"Focus example\" \n[д/н]: "
+        print(
+                "[green]Локализация успешно создана![/green]\nДля перехода в файл напишите напишите 'о', для повтора скрипта 'п', для выхода любое другое."
         )
-        if need_zero in ('д', 'н'):
-            break
+        exit = input('[о, п, (другое)]: ')
+        if exit == 'о':
+            os.startfile(ask_file_output)
+        elif exit == 'п':
+            pass
         else:
-            print("[red]Некорректный ввод![/red] Повторите попытку.\n")
-    while True:
-        print()
-        need_space = input(
-                "Нужны ли пробелы в локализации? Примеры:\nl_english:\nUsa_focus: \"Usa focus\" \nИЛИ \nl_english:\n Usa_focus: \"Usa focus\" \n[д/н]: "
-        )
-        if need_space in ('д', 'н'):
-            break
-        else:
-            print("[red]Некорректный ввод![/red] Повторите попытку.\n")
-    work(working_mode, need_zero, need_space)
-    print()
-    print(
-            "[green]Локализация успешно создана![/green]\nДля перехода в файл напишите напишите 'о', для повтора скрипта 'п', для выхода любое другое."
-    )
-    exit = input('[о, п, (другое)]: ')
-    if exit == 'о':
-        os.startfile(ask_file_output)
-    elif exit == 'п':
-        pass
-    else:
-        sys.exit()
+            sys.exit()

@@ -1,0 +1,21 @@
+focus_tree = {
+    country = {
+		tag = AUS
+	}
+
+	focus = {
+		id = AUS_1
+		cost = 10
+		mutually_exclusive = {focus = AUS_2}
+	}
+	focus = {
+		id = AUS_2
+		cost = 10
+		mutually_exclusive = {focus = AUS_1}
+	}
+	focus = {
+		id = AUS_3
+		cost = 10
+		prerequisite = {focus = AUS_1}
+	}
+}

@@ -1,5 +1,6 @@
 # import time
 # import sys
+import os
 from functools import lru_cache  # кэширование функций использовать декоратор @lru_cache
 
 # from loguru import logger
@@ -31,6 +32,10 @@ from functools import lru_cache  # кэширование функций исп�
 # result_t1 = end_time1 - start_time1
 #
 # logger.info(f'{result_t1} sec')
-dict1 = {'name': 'максим', 'f_name': 'прокопишин'}
-dict2 = {'name': 'вася', 'f_name': 'пупкин'}
-dict3 = {'person1': {'name': 'максим', 'f_name': 'прокопишин'}, 'person2': {'name': 'вася', 'f_name': 'пупкин'}}
+# dict1 = {'name': 'максим', 'f_name': 'прокопишин'}
+# dict2 = {'name': 'вася', 'f_name': 'пупкин'}
+# dict3 = {'person1': {'name': 'максим', 'f_name': 'прокопишин'}, 'person2': {'name': 'вася', 'f_name': 'пупкин'}}
+
+path = "D:\\System folder\\Documents\\Lynx_ython\\hoi manager\\test folder\\test\\AUS_focus.txt"
+if os.path.isfile(path):
+    print('hello')

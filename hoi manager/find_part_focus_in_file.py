@@ -57,8 +57,6 @@ def find_part_focus(file: str) -> dict:
     repetitive_tag = False
     name_country = file[file.rfind('/') + 1:file.find('.')]
     tag = get_name_with_help_id(name_country)
-    if tag in country and name_country not in country[tag]:
-        repetitive_tag = True
     number_of_spaces_focus = None
     print(f'{name_country.capitalize()}: {tag}')
     with open(file, 'r', encoding='UTF-8') as focus_file:
@@ -76,6 +74,9 @@ def find_part_focus(file: str) -> dict:
                 if focus_block:
                     if line.startswith('tag =') and tag is None:
                         tag = line[len('tag = '):]
+                        name_country = get_name_with_help_id(tag)
+                        if tag in country and name_country not in country[tag]:
+                            repetitive_tag = True
                     if line.startswith('id ='):
                         if focus_dict.get('id') is None:
                             id_focus = line[len('id = '):]
@@ -147,7 +148,7 @@ if __name__ == '__main__':
         # TODO исправить выбор папки
         file = filedialog.askopenfilename(title='Выберете файл фокуса', filetypes=[('Фокус файл', '*.txt')])
         if file == '':
-            print(f"Файл не выбрана!")
+            print(f"Файл не выбран!")
             while True:
                 q_exit = input('Попробовать ещё раз или выход?\n[в/п]: ')
                 if q_exit == 'п':

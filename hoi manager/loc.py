@@ -10,13 +10,14 @@ print(
         "Здравствуйте, это программа предназначена для помощи при моддинге в Hearts of Iron IV. Эта программа может работать в нескольких режимах:\n1) Выбрать файл который будет локализован\n2) Выбрать файл и сделать из него заготовку под локализацию"
 )
 logger.remove()
+ask_file_output = ''
 
 
 def work(mode, zero, space, file=''):
     if mode == '1':
         print('Откройте файл для локализации')
         # file = filedialog.askopenfilename(title='Выберете файл для локализации', filetypes=[('Файл hoi4', '*.txt')])
-        file = "D:/System folder/Documents/Lynx_python/hoi manager/test folder/test_json/usa.txt"
+        file = "F:/Lynx_python/hoi manager/test folder/test_json/usa.txt"  # TODO убрать
         if file == '':
             print(f"Файл не выбран!")
             while True:
@@ -33,16 +34,15 @@ def work(mode, zero, space, file=''):
                 full_loc = {}
                 for line in file_input:
                     if line.strip().startswith('id = '):
-                        id = re.sub(r'^[A-Z]{3}_', '', line[len('id =  '):].strip()).capitalize()
-                        loc_id = id.replace('_', ' ')
-                        full_loc[id] = loc_id
-            global ask_file_output
+                        id_foc = line[len('id =  '):].strip()
+                        loc_id = re.sub(r'^[A-Z]{3}_', '', id_foc).capitalize().replace('_', ' ')
+                        full_loc[id_foc] = loc_id
             # ask_file_output = filedialog.asksaveasfile(
             #         'a',
             #         filetypes=[('Файл локализации', '*.yml'),
             #                    ('Текстовый файл', '*.txt')]
             # )
-            ask_file_output = "D:/System folder/Documents/Lynx_python/hoi manager/test folder/test/тест.txt"
+            ask_file_output = "F:/Lynx_python/hoi manager/test folder/test_json/тест.txt"  # TODO убрать
             with open(ask_file_output, 'w+', encoding='UTF-8') as file_output:
                 lines = file_output.readlines()
                 if not any(line.strip() == 'l_:' for line in lines):
